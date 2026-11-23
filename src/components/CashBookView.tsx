@@ -85,34 +85,8 @@ export const CashBookView: React.FC = () => {
   };
 
   return (
-    <div className="space-y-6 pb-20 md:pb-10">
-      {/* Top Header - Simple, Terang & Jelas */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-5 rounded-2xl bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-800 shadow-xs">
-        <div>
-          <div className="flex items-center gap-2 mb-1">
-            <span className="px-2 py-0.5 rounded text-[11px] font-bold bg-emerald-100 text-emerald-800 dark:bg-emerald-950/60 dark:text-emerald-300">
-              Arus Kas
-            </span>
-            <span className="text-xs text-slate-500">Buku Kas Showroom</span>
-          </div>
-          <h2 className="text-xl sm:text-2xl font-black text-slate-900 dark:text-zinc-50 tracking-tight">
-            Buku Kas & Mutasi Keuangan
-          </h2>
-          <p className="text-xs sm:text-sm text-slate-600 dark:text-zinc-400 mt-0.5">
-            Pemisahan kas rekening bank & kas tunai, mutasi harian showroom, dan bagi hasil partner.
-          </p>
-        </div>
-
-        <button
-          onClick={() => setShowAddTx(!showAddTx)}
-          className="inline-flex items-center justify-center gap-1.5 px-4 py-2.5 text-xs sm:text-sm font-bold rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white shadow-xs transition active:scale-95 shrink-0"
-        >
-          <Plus className="w-4 h-4 stroke-[3]" />
-          <span>Tambah Mutasi Kas</span>
-        </button>
-      </div>
-
-      {/* Wallets Cards - 3 Clean Cards */}
+    <div className="space-y-4 pb-20 md:pb-10">
+      {/* Wallets Cards - 3 Clean Cards (Jalur Seduh style) */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
         {/* Total Available */}
         <div className="p-5 rounded-2xl bg-emerald-600 text-white shadow-xs flex flex-col justify-between">
@@ -403,6 +377,13 @@ export const CashBookView: React.FC = () => {
             <option value="outflow">Kas Keluar (-)</option>
             <option value="transfer">Pindah Dompet</option>
           </select>
+          <button
+            onClick={() => setShowAddTx(!showAddTx)}
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white font-bold transition shadow-xs"
+          >
+            <Plus className="w-3.5 h-3.5 stroke-[3]" />
+            <span>{showAddTx ? 'Tutup Form' : '+ Catat Mutasi'}</span>
+          </button>
         </div>
       </div>
 

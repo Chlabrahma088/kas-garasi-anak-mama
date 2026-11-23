@@ -76,34 +76,8 @@ export const CarsListView: React.FC<CarsListViewProps> = ({
   };
 
   return (
-    <div className="space-y-6 pb-20 md:pb-10">
-      {/* Top Header - Simple, Terang & Jelas */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-5 rounded-2xl bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-800 shadow-xs">
-        <div>
-          <div className="flex items-center gap-2 mb-1">
-            <span className="px-2 py-0.5 rounded text-[11px] font-bold bg-emerald-100 text-emerald-800 dark:bg-emerald-950/60 dark:text-emerald-300">
-              Katalog Showroom
-            </span>
-            <span className="text-xs text-slate-500">Stok Mobil Bekas</span>
-          </div>
-          <h2 className="text-xl sm:text-2xl font-black text-slate-900 dark:text-zinc-50 tracking-tight">
-            Manajemen Stok & Kalkulasi HPP
-          </h2>
-          <p className="text-xs sm:text-sm text-slate-600 dark:text-zinc-400 mt-0.5">
-            Daftar lengkap mobil, rincian biaya perbaikan bengkel, target harga jual, dan bagi hasil partner.
-          </p>
-        </div>
-
-        <button
-          onClick={onOpenAddCar}
-          className="inline-flex items-center justify-center gap-1.5 px-4 py-2.5 text-xs sm:text-sm font-bold rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white shadow-xs transition active:scale-95 shrink-0"
-        >
-          <Plus className="w-4 h-4 stroke-[3]" />
-          <span>Tambah Mobil Baru Masuk</span>
-        </button>
-      </div>
-
-      {/* Controls: Search, Status Filter Tabs, Sort */}
+    <div className="space-y-4 pb-20 md:pb-10">
+      {/* Controls: Search, Status Filter Tabs, Sort, and Add Button */}
       <div className="space-y-3 p-4 rounded-2xl bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-800 shadow-xs">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-3">
           {/* Search Input */}
@@ -118,8 +92,8 @@ export const CarsListView: React.FC<CarsListViewProps> = ({
             />
           </div>
 
-          {/* Sort Dropdown */}
-          <div className="flex items-center gap-2 self-end md:self-auto">
+          {/* Sort Dropdown & Add Button */}
+          <div className="flex items-center gap-2 self-end md:self-auto shrink-0">
             <span className="text-xs text-slate-500 font-medium flex items-center gap-1">
               <SlidersHorizontal className="w-3.5 h-3.5" />
               <span>Urutkan:</span>
@@ -133,6 +107,14 @@ export const CarsListView: React.FC<CarsListViewProps> = ({
               <option value="hpp_high">Total HPP Tertinggi</option>
               <option value="price_low">Harga Beli Termurah</option>
             </select>
+
+            <button
+              onClick={onOpenAddCar}
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-bold rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white shadow-xs transition active:scale-95"
+            >
+              <Plus className="w-3.5 h-3.5 stroke-[3]" />
+              <span className="hidden sm:inline">+ Tambah Unit</span>
+            </button>
           </div>
         </div>
 
