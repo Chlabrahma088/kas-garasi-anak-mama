@@ -68,9 +68,9 @@ interface AppContextType {
 const AppContext = createContext<AppContextType | undefined>(undefined);
 
 const STORAGE_KEYS = {
-  CARS: 'gam_cars_v3',
-  WALLETS: 'gam_wallets_v3',
-  TRANSACTIONS: 'gam_txs_v3',
+  CARS: 'gam_cars_v4',
+  WALLETS: 'gam_wallets_v4',
+  TRANSACTIONS: 'gam_txs_v4',
   THEME: 'gam_theme_v1',
 };
 
