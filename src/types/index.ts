@@ -119,6 +119,7 @@ export interface CashTransaction {
   walletId: string;
   targetWalletId?: string; // used when transfer_between_wallets
   unitId?: string;
+  reconditionId?: string;
   transactionType: TransactionType;
   category: CashCategory;
   amount: number;
