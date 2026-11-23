@@ -39,7 +39,7 @@ export const INITIAL_CARS: CarUnit[] = [
     soldDate: '2026-09-18',
     instagramUrl: 'https://www.instagram.com/p/DcK1O-xGC30/',
     walletIdSale: 'w1',
-    photoUrl: 'https://images.unsplash.com/photo-1541899481282-d53bffe3c35d?auto=format&fit=crop&w=1000&q=80',
+    photoUrl: '/cars/hrv-2022.jpg',
     notes: '[SOLD, 18 September 2026] Bismillah for sale Honda HR-V SE 2022 Full Original no repaint no repair. Record Honda KM 68rb. Retrim Steer Napa Leather, Detailing, Pajak On 09-27 DKI, Frameplate JDM. Laku 285jt (Nego dari 299jt). Cuan Bersih +1.15jt.',
     partners: [
       {
@@ -112,7 +112,7 @@ export const INITIAL_CARS: CarUnit[] = [
     soldDate: '2026-10-08',
     instagramUrl: 'https://www.instagram.com/p/DdBah1sGOzv/',
     walletIdDp: 'w1',
-    photoUrl: 'https://images.unsplash.com/photo-1541899481282-d53bffe3c35d?auto=format&fit=crop&w=1000&q=80',
+    photoUrl: '/cars/hrv-2021.jpg',
     notes: '[SOLD, 8 Oktober 2026] Honda HR-V SE 2021 Full Original Record Honda KM 74rb. Autoretract, Ban 4 BFG baru, Wiper/Klakson PIAA. Terjual Rp 210jt ke Padang, baru dibayar termin Rp 105jt (sisa Rp 105jt). Modal pribadi owner.',
     partners: [
       {
@@ -149,7 +149,7 @@ export const INITIAL_CARS: CarUnit[] = [
     soldDate: '2026-09-14',
     instagramUrl: 'https://www.instagram.com/p/DdGukwwmErm/',
     walletIdSale: 'w1',
-    photoUrl: 'https://images.unsplash.com/photo-1590362891991-f776e747a588?auto=format&fit=crop&w=1000&q=80',
+    photoUrl: '/cars/altis-2015.jpg',
     notes: '[SOLD, 14 September 2026] Toyota Corolla Altis 1.8 V 2015 Full Original Record Toyota KM 112rb. Peremajaan kaki-kaki, shock baru, Full Detailing, Coating. LAKU 137jt dalam 4 hari! Cuan Bersih +13jt.',
     partners: [
       {
@@ -205,7 +205,7 @@ export const INITIAL_CARS: CarUnit[] = [
     soldDate: '2026-11-10',
     instagramUrl: 'https://www.instagram.com/p/DeBrffHGLjj/',
     walletIdSale: 'w1',
-    photoUrl: 'https://images.unsplash.com/photo-1519641471654-76ce0107ad1b?auto=format&fit=crop&w=1000&q=80',
+    photoUrl: '/cars/fortuner-2022.jpg',
     notes: '[SOLD, 10 November 2026] Toyota Fortuner 2.8 GR Sport 2022 Full Original no repaint Record Toyota KM 93rb. Detailing Autohigh, Ban 4 baru Dunlop AT25, Balance arm Thailand, Tatakan plat stainless. Terjual 409jt.',
     partners: [
       {
