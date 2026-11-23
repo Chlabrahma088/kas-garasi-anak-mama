@@ -86,6 +86,10 @@ export function calculateUnitFinancials(unit: CarUnit): UnitCalculations {
   }
   
   const holdingDays = calculateDaysBetween(unit.purchaseDate, unit.soldDate);
+  const effectiveSoldDate = unit.soldDate || (unit.status === 'booked' ? unit.dpDate : undefined);
+  const daysToSellFromPost = unit.postingDate && effectiveSoldDate
+    ? calculateDaysBetween(unit.postingDate, effectiveSoldDate)
+    : undefined;
 
   return {
     totalRecondition,
@@ -93,5 +97,6 @@ export function calculateUnitFinancials(unit: CarUnit): UnitCalculations {
     netProfit,
     marginPct: parseFloat(marginPct.toFixed(2)),
     holdingDays,
+    daysToSellFromPost,
   };
 }

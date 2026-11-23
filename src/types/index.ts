@@ -71,6 +71,8 @@ export interface CarUnit {
   walletIdSale?: string;
   photoUrl?: string;
   notes?: string;
+  postingDate?: string;
+  instagramUrl?: string;
   reconditionExpenses: ReconditionExpense[];
   partners: UnitPartner[];
 }
@@ -134,4 +136,5 @@ export interface UnitCalculations {
   netProfit: number;
   marginPct: number;
   holdingDays: number;
+  daysToSellFromPost?: number;
 }

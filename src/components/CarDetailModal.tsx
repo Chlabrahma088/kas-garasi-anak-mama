@@ -28,6 +28,9 @@ import {
   Plus,
   ShieldCheck,
   Sliders,
+  Calendar,
+  Zap,
+  ExternalLink,
 } from 'lucide-react';
 
 interface CarDetailModalProps {
@@ -355,12 +358,19 @@ export const CarDetailModal: React.FC<CarDetailModalProps> = ({ unitId, onClose 
 
           {/* If Status is SOLD: Profit & Realized Results */}
           {car.status === 'sold' && (
-            <div className="p-4 rounded-xl bg-purple-50 dark:bg-purple-950/30 border border-purple-200 dark:border-purple-800/60 shadow-xs">
-              <div className="flex items-center gap-2 mb-2">
-                <ShieldCheck className="w-4 h-4 text-purple-700" />
-                <h3 className="text-xs font-bold text-purple-900 dark:text-purple-300 uppercase tracking-wider">
-                  Realisasi Penjualan & Profit
-                </h3>
+            <div className="p-4 rounded-xl bg-purple-50 dark:bg-purple-950/30 border border-purple-200 dark:border-purple-800/60 shadow-xs space-y-3">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <ShieldCheck className="w-4 h-4 text-purple-700" />
+                  <h3 className="text-xs font-bold text-purple-900 dark:text-purple-300 uppercase tracking-wider">
+                    Realisasi Penjualan & Profit
+                  </h3>
+                </div>
+                {car.soldDate && (
+                  <span className="text-xs font-bold text-purple-700 dark:text-purple-300">
+                    Laku: {formatDateIndo(car.soldDate)}
+                  </span>
+                )}
               </div>
 
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-slate-800 dark:text-zinc-200">
@@ -383,12 +393,74 @@ export const CarDetailModal: React.FC<CarDetailModalProps> = ({ unitId, onClose 
                   </span>
                 </div>
                 <div>
-                  <span className="text-[11px] text-slate-500 block">Margin & Lama Terjual:</span>
+                  <span className="text-[11px] text-slate-500 block">Margin Laba:</span>
                   <span className="text-xs font-bold font-mono">
-                    {fin.marginPct}% ({fin.holdingDays} Hari)
+                    {fin.marginPct}%
                   </span>
                 </div>
               </div>
+
+              {/* Tanggal Posting & Kecepatan Terjual */}
+              {(car.postingDate || car.instagramUrl) && (
+                <div className="pt-2.5 border-t border-purple-200 dark:border-purple-800/60 flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs">
+                  <div className="flex items-center gap-3 flex-wrap">
+                    {car.postingDate && (
+                      <span className="flex items-center gap-1 text-slate-700 dark:text-zinc-300">
+                        <Calendar className="w-3.5 h-3.5 text-purple-600" />
+                        <span>Posting IG: <b>{formatDateIndo(car.postingDate)}</b></span>
+                      </span>
+                    )}
+                    {fin.daysToSellFromPost !== undefined && (
+                      <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full font-black text-[11px] bg-amber-100 text-amber-900 dark:bg-amber-950/60 dark:text-amber-300">
+                        <Zap className="w-3.5 h-3.5 fill-amber-500 text-amber-500" />
+                        <span>Terjual dalam {fin.daysToSellFromPost} Hari sejak Posting</span>
+                      </span>
+                    )}
+                  </div>
+                  {car.instagramUrl && (
+                    <a
+                      href={car.instagramUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1 text-xs font-bold text-rose-600 dark:text-rose-400 hover:underline"
+                    >
+                      <span>Lihat Postingan Instagram</span>
+                      <ExternalLink className="w-3.5 h-3.5" />
+                    </a>
+                  )}
+                </div>
+              )}
+            </div>
+          )}
+
+          {/* If Status is not sold, but has Instagram link or post date */}
+          {car.status !== 'sold' && (car.postingDate || car.instagramUrl) && (
+            <div className="p-3 rounded-xl bg-slate-50 dark:bg-zinc-800/60 border border-slate-200 dark:border-zinc-700 flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs">
+              <div className="flex items-center gap-3 flex-wrap">
+                {car.postingDate && (
+                  <span className="flex items-center gap-1 text-slate-700 dark:text-zinc-300">
+                    <Calendar className="w-3.5 h-3.5 text-rose-600" />
+                    <span>Diposting di Instagram: <b>{formatDateIndo(car.postingDate)}</b></span>
+                  </span>
+                )}
+                {car.status === 'booked' && fin.daysToSellFromPost !== undefined && (
+                  <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full font-black text-[11px] bg-amber-100 text-amber-900 dark:bg-amber-950/60 dark:text-amber-300">
+                    <Zap className="w-3.5 h-3.5 fill-amber-500 text-amber-500" />
+                    <span>Laku / Booked dalam {fin.daysToSellFromPost} Hari</span>
+                  </span>
+                )}
+              </div>
+              {car.instagramUrl && (
+                <a
+                  href={car.instagramUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1 text-xs font-bold text-rose-600 dark:text-rose-400 hover:underline"
+                >
+                  <span>Buka di Instagram</span>
+                  <ExternalLink className="w-3.5 h-3.5" />
+                </a>
+              )}
             </div>
           )}
 

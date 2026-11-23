@@ -15,6 +15,9 @@ import {
   CheckCircle2,
   BookmarkCheck,
   Users,
+  Calendar,
+  Zap,
+  ExternalLink,
 } from 'lucide-react';
 
 interface CarsListViewProps {
@@ -294,59 +297,104 @@ export const CarsListView: React.FC<CarsListViewProps> = ({
                       </div>
                     </div>
 
-                    {/* If Sold, show profit banner */}
+                    {/* If Sold, show profit banner & Selling Speed */}
                     {car.status === 'sold' && (
-                      <div className="p-3 rounded-xl bg-purple-50 dark:bg-purple-950/30 border border-purple-200 dark:border-purple-800/60 flex items-center justify-between text-xs">
-                        <div>
-                          <span className="text-[10px] text-purple-700 dark:text-purple-300 font-bold uppercase block">
-                            Terjual ({fin.holdingDays} Hari)
-                          </span>
-                          <span className="font-bold font-mono text-slate-900 dark:text-zinc-100 text-sm">
-                            {formatRupiah(car.finalSellingPrice)}
-                          </span>
+                      <div className="space-y-2">
+                        <div className="p-3 rounded-xl bg-purple-50 dark:bg-purple-950/30 border border-purple-200 dark:border-purple-800/60 flex items-center justify-between text-xs">
+                          <div>
+                            <span className="text-[10px] text-purple-700 dark:text-purple-300 font-bold uppercase block">
+                              Terjual {car.soldDate ? `• ${formatDateIndo(car.soldDate)}` : ''}
+                            </span>
+                            <span className="font-bold font-mono text-slate-900 dark:text-zinc-100 text-sm">
+                              {formatRupiah(car.finalSellingPrice)}
+                            </span>
+                          </div>
+                          <div className="text-right">
+                            <span className="text-[10px] text-purple-700 dark:text-purple-300 font-bold uppercase block">
+                              Net Profit Garasi
+                            </span>
+                            <span className="font-black font-mono text-emerald-700 dark:text-emerald-400 text-sm">
+                              +{formatRupiah(fin.netProfit)} ({fin.marginPct}%)
+                            </span>
+                          </div>
                         </div>
-                        <div className="text-right">
-                          <span className="text-[10px] text-purple-700 dark:text-purple-300 font-bold uppercase block">
-                            Net Profit Garasi
-                          </span>
-                          <span className="font-black font-mono text-emerald-700 dark:text-emerald-400 text-sm">
-                            +{formatRupiah(fin.netProfit)} ({fin.marginPct}%)
-                          </span>
-                        </div>
+
+                        {/* Durasi Terjual sejak Posting IG */}
+                        {car.postingDate && (
+                          <div className="flex items-center justify-between px-3 py-1.5 rounded-xl bg-slate-50 dark:bg-zinc-800/60 border border-slate-200/80 dark:border-zinc-700/60 text-xs">
+                            <div className="flex items-center gap-1.5 text-slate-600 dark:text-zinc-300 text-[11px]">
+                              <Calendar className="w-3.5 h-3.5 text-slate-400" />
+                              <span>Posting: <b>{formatDateIndo(car.postingDate)}</b></span>
+                            </div>
+                            {fin.daysToSellFromPost !== undefined && (
+                              <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[11px] font-black bg-amber-100 text-amber-900 dark:bg-amber-950/60 dark:text-amber-300">
+                                <Zap className="w-3 h-3 fill-amber-500 text-amber-500" />
+                                <span>Laku dlm {fin.daysToSellFromPost} Hari</span>
+                              </span>
+                            )}
+                          </div>
+                        )}
                       </div>
                     )}
 
                     {/* If Active, show Target & Potensi Cuan */}
-                    {car.status !== 'sold' && (
-                      <div className="p-3 rounded-xl bg-emerald-50 dark:bg-emerald-950/30 border border-emerald-200 dark:border-emerald-800/60 flex items-center justify-between text-xs">
-                        <div>
-                          <span className="text-[10px] text-emerald-800 dark:text-emerald-300 font-bold uppercase block">
-                            Target Jual
-                          </span>
-                          <span className="font-bold font-mono text-slate-900 dark:text-zinc-100 text-sm">
-                            {formatRupiah(car.targetSellingPrice)}
-                          </span>
+                    {car.status !== 'sold' && car.status !== 'booked' && (
+                      <div className="space-y-2">
+                        <div className="p-3 rounded-xl bg-emerald-50 dark:bg-emerald-950/30 border border-emerald-200 dark:border-emerald-800/60 flex items-center justify-between text-xs">
+                          <div>
+                            <span className="text-[10px] text-emerald-800 dark:text-emerald-300 font-bold uppercase block">
+                              Target Jual
+                            </span>
+                            <span className="font-bold font-mono text-slate-900 dark:text-zinc-100 text-sm">
+                              {formatRupiah(car.targetSellingPrice)}
+                            </span>
+                          </div>
+                          <div className="text-right">
+                            <span className="text-[10px] text-emerald-800 dark:text-emerald-300 font-bold uppercase block">
+                              Potensi Cuan
+                            </span>
+                            <span className="font-black font-mono text-emerald-700 dark:text-emerald-400 text-sm">
+                              +{formatRupiah(estProfit)}
+                            </span>
+                          </div>
                         </div>
-                        <div className="text-right">
-                          <span className="text-[10px] text-emerald-800 dark:text-emerald-300 font-bold uppercase block">
-                            Potensi Cuan
-                          </span>
-                          <span className="font-black font-mono text-emerald-700 dark:text-emerald-400 text-sm">
-                            +{formatRupiah(estProfit)}
-                          </span>
-                        </div>
+
+                        {car.postingDate && (
+                          <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-50 dark:bg-zinc-800/60 border border-slate-200/80 dark:border-zinc-700/60 text-[11px] text-slate-600 dark:text-zinc-300">
+                            <Calendar className="w-3.5 h-3.5 text-slate-400" />
+                            <span>Diposting IG: <b>{formatDateIndo(car.postingDate)}</b></span>
+                          </div>
+                        )}
                       </div>
                     )}
 
-                    {/* If Booked, show DP info */}
+                    {/* If Booked, show DP info & Selling Speed */}
                     {car.status === 'booked' && (
-                      <div className="p-2.5 rounded-lg bg-blue-50 dark:bg-blue-950/30 border border-blue-200 dark:border-blue-800/60 flex items-center justify-between text-xs">
-                        <span className="text-blue-700 dark:text-blue-300 font-semibold">
-                          DP Booking Masuk:
-                        </span>
-                        <span className="font-black font-mono text-blue-700 dark:text-blue-300">
-                          {formatRupiah(car.dpAmount)}
-                        </span>
+                      <div className="space-y-2">
+                        <div className="p-2.5 rounded-lg bg-blue-50 dark:bg-blue-950/30 border border-blue-200 dark:border-blue-800/60 flex items-center justify-between text-xs">
+                          <span className="text-blue-700 dark:text-blue-300 font-semibold">
+                            DP Booking Masuk:
+                          </span>
+                          <span className="font-black font-mono text-blue-700 dark:text-blue-300">
+                            {formatRupiah(car.dpAmount)}
+                          </span>
+                        </div>
+
+                        {car.postingDate && (
+                          <div className="flex items-center justify-between px-3 py-1.5 rounded-xl bg-slate-50 dark:bg-zinc-800/60 border border-slate-200/80 dark:border-zinc-700/60 text-xs">
+                            <div className="flex items-center gap-1.5 text-slate-600 dark:text-zinc-300 text-[11px]">
+                              <Calendar className="w-3.5 h-3.5 text-slate-400" />
+                              <span>Posting: <b>{formatDateIndo(car.postingDate)}</b></span>
+                              {car.soldDate && <span>• Laku: <b>{formatDateIndo(car.soldDate)}</b></span>}
+                            </div>
+                            {fin.daysToSellFromPost !== undefined && (
+                              <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[11px] font-black bg-amber-100 text-amber-900 dark:bg-amber-950/60 dark:text-amber-300">
+                                <Zap className="w-3 h-3 fill-amber-500 text-amber-500" />
+                                <span>Laku dlm {fin.daysToSellFromPost} Hari</span>
+                              </span>
+                            )}
+                          </div>
+                        )}
                       </div>
                     )}
                   </div>
@@ -361,10 +409,24 @@ export const CarsListView: React.FC<CarsListViewProps> = ({
                     </span>
                   </div>
 
-                  <span className="text-emerald-700 dark:text-emerald-400 font-bold flex items-center gap-0.5 text-xs">
-                    <span>Lihat Rincian HPP</span>
-                    <ChevronRight className="w-4 h-4" />
-                  </span>
+                  <div className="flex items-center gap-3">
+                    {car.instagramUrl && (
+                      <a
+                        href={car.instagramUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onClick={(e) => e.stopPropagation()}
+                        className="inline-flex items-center gap-1 px-2 py-0.5 rounded-lg text-[11px] font-bold text-rose-600 hover:text-rose-700 dark:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-950/40 transition"
+                      >
+                        <span>📸 Post IG</span>
+                        <ExternalLink className="w-3 h-3" />
+                      </a>
+                    )}
+                    <span className="text-emerald-700 dark:text-emerald-400 font-bold flex items-center gap-0.5 text-xs">
+                      <span>Rincian</span>
+                      <ChevronRight className="w-4 h-4" />
+                    </span>
+                  </div>
                 </div>
               </div>
             );

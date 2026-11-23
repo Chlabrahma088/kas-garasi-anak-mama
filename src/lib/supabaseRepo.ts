@@ -20,6 +20,22 @@ export async function fetchCarsFromSupabase(): Promise<CarUnit[] | null> {
     const { data: partners } = await supabase.from('unit_partners').select('*');
 
     const mappedCars: CarUnit[] = units.map((u: any) => {
+      let meta: { postingDate?: string; instagramUrl?: string } = {};
+      let cleanNotes = u.notes || '';
+      if (cleanNotes.includes('[META:')) {
+        try {
+          const match = cleanNotes.match(/\[META:(.*?)\]/);
+          if (match) {
+            meta = JSON.parse(match[1]);
+            cleanNotes = cleanNotes.replace(/\[META:.*?\]/, '').trim();
+          }
+        } catch {
+          // fallback
+        }
+      }
+      const postingDate = u.posting_date || meta.postingDate || undefined;
+      const instagramUrl = u.instagram_url || meta.instagramUrl || undefined;
+
       const carExpenses: ReconditionExpense[] = (expenses || [])
         .filter((e: any) => e.unit_id === u.id)
         .map((e: any) => ({
@@ -68,7 +84,9 @@ export async function fetchCarsFromSupabase(): Promise<CarUnit[] | null> {
         soldDate: u.sold_date || undefined,
         walletIdSale: u.wallet_id_sale || undefined,
         photoUrl: u.photo_url || 'https://images.unsplash.com/photo-1590362891991-f776e747a588?auto=format&fit=crop&w=1000&q=80',
-        notes: u.notes || '',
+        notes: cleanNotes,
+        postingDate,
+        instagramUrl,
         partners: carPartners.length > 0 ? carPartners : [
           {
             id: `p-${u.id}-default`,
@@ -150,6 +168,12 @@ export async function fetchTransactionsFromSupabase(): Promise<CashTransaction[]
  */
 export async function insertCarToSupabase(car: CarUnit, initialExpenses: ReconditionExpense[] = []) {
   try {
+    let notesToSave = car.notes || '';
+    if (car.postingDate || car.instagramUrl) {
+      const meta = { postingDate: car.postingDate, instagramUrl: car.instagramUrl };
+      notesToSave = `${notesToSave} [META:${JSON.stringify(meta)}]`.trim();
+    }
+
     await supabase.from('units').insert({
       id: car.id,
       brand: car.brand,
@@ -166,7 +190,7 @@ export async function insertCarToSupabase(car: CarUnit, initialExpenses: Recondi
       target_selling_price: car.targetSellingPrice,
       dp_amount: car.dpAmount,
       photo_url: car.photoUrl,
-      notes: car.notes,
+      notes: notesToSave,
     });
 
     if (car.partners && car.partners.length > 0) {
@@ -217,7 +241,14 @@ export async function updateCarInSupabase(id: string, updates: Partial<CarUnit>)
     if (updates.soldDate) payload.sold_date = updates.soldDate;
     if (updates.walletIdSale) payload.wallet_id_sale = updates.walletIdSale;
     if (updates.targetSellingPrice !== undefined) payload.target_selling_price = updates.targetSellingPrice;
-    if (updates.notes !== undefined) payload.notes = updates.notes;
+    if (updates.notes !== undefined || updates.postingDate !== undefined || updates.instagramUrl !== undefined) {
+      let notesToSave = updates.notes !== undefined ? updates.notes : '';
+      if (updates.postingDate || updates.instagramUrl) {
+        const meta = { postingDate: updates.postingDate, instagramUrl: updates.instagramUrl };
+        notesToSave = `${notesToSave} [META:${JSON.stringify(meta)}]`.trim();
+      }
+      payload.notes = notesToSave;
+    }
 
     if (Object.keys(payload).length > 0) {
       await supabase.from('units').update(payload).eq('id', id);
