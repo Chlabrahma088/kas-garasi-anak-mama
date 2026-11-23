@@ -108,12 +108,12 @@ export const INITIAL_CARS: CarUnit[] = [
     dpDate: '2026-11-23',
     walletIdDp: 'w1',
     photoUrl: 'https://images.unsplash.com/photo-1541899481282-d53bffe3c35d?auto=format&fit=crop&w=1000&q=80',
-    notes: 'Unit tambahan modal. Terjual Rp 210jt, baru dibayar termin Rp 105jt (sisa Rp 105jt) karena dilempar/dijual lagi di Padang.',
+    notes: 'Unit modal sendiri dari owner (harga beli tidak dihitung). Terjual Rp 210jt, baru dibayar termin Rp 105jt (sisa Rp 105jt) karena dijual lagi di Padang.',
     partners: [
       {
         id: 'p-hrv-2021',
         unitId: 'unit-hrv-2021',
-        partnerName: 'Kas Garasi (Tambahan Modal)',
+        partnerName: 'Owner (Modal Sendiri)',
         capitalAmount: 0,
         capitalPercentage: 100,
         profitSharePercentage: 100,
