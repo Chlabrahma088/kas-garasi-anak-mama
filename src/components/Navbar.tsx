@@ -40,8 +40,12 @@ export const Navbar: React.FC<NavbarProps> = ({
               onClick={() => setCurrentTab('dashboard')}
               className="flex items-center gap-3 cursor-pointer select-none"
             >
-              <div className="flex items-center justify-center w-10 h-10 rounded-xl bg-emerald-600 text-white font-bold shadow-xs">
-                <Car className="w-5 h-5" />
+              <div className="relative w-10 h-10 rounded-xl overflow-hidden shadow-xs border border-slate-200 dark:border-zinc-800 bg-black shrink-0">
+                <img
+                  src="/logo.jpg"
+                  alt="Garasi Anak Mama Logo"
+                  className="w-full h-full object-cover"
+                />
               </div>
 
               <div>

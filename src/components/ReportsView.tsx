@@ -149,19 +149,24 @@ export const ReportsView: React.FC = () => {
     <div className="space-y-6 pb-20 md:pb-10">
       {/* Header - Simple, Terang & Jelas */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-5 rounded-2xl bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-800 shadow-xs">
-        <div>
-          <div className="flex items-center gap-2 mb-1">
-            <span className="px-2 py-0.5 rounded text-[11px] font-bold bg-emerald-100 text-emerald-800 dark:bg-emerald-950/60 dark:text-emerald-300">
-              Laporan Keuangan
-            </span>
-            <span className="text-xs text-slate-500">Rekapitulasi Garasi</span>
+        <div className="flex items-center gap-3.5">
+          <div className="w-12 h-12 rounded-xl overflow-hidden bg-black border border-slate-200 dark:border-zinc-800 shadow-xs shrink-0">
+            <img src="/logo.jpg" alt="Garasi Anak Mama" className="w-full h-full object-cover" />
           </div>
-          <h2 className="text-xl sm:text-2xl font-black text-slate-900 dark:text-zinc-50 tracking-tight">
-            Laporan Finansial & Ekspor Data
-          </h2>
-          <p className="text-xs sm:text-sm text-slate-600 dark:text-zinc-400 mt-0.5">
-            Rekap laba bersih penjualan mobil bekas, riwayat biaya perbaikan, dan ekspor spreadsheet CSV/Excel.
-          </p>
+          <div>
+            <div className="flex items-center gap-2 mb-1">
+              <span className="px-2 py-0.5 rounded text-[11px] font-bold bg-emerald-100 text-emerald-800 dark:bg-emerald-950/60 dark:text-emerald-300">
+                Laporan Keuangan
+              </span>
+              <span className="text-xs text-slate-500">Rekapitulasi Garasi</span>
+            </div>
+            <h2 className="text-xl sm:text-2xl font-black text-slate-900 dark:text-zinc-50 tracking-tight">
+              Laporan Finansial & Ekspor Data
+            </h2>
+            <p className="text-xs sm:text-sm text-slate-600 dark:text-zinc-400 mt-0.5">
+              Rekap laba bersih penjualan mobil bekas, riwayat biaya perbaikan, dan ekspor spreadsheet CSV/Excel.
+            </p>
+          </div>
         </div>
 
         <button

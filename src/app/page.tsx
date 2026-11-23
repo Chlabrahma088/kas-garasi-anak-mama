@@ -70,8 +70,12 @@ function DashboardContent() {
       <footer className="border-t border-zinc-200 dark:border-zinc-800 bg-white/60 dark:bg-zinc-950/60 py-6 mb-16 md:mb-0 print:hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-zinc-500 dark:text-zinc-400">
           <div className="flex items-center gap-2">
-            <div className="w-6 h-6 rounded-lg bg-emerald-600 text-white flex items-center justify-center font-bold text-xs">
-              <Car className="w-3.5 h-3.5" />
+            <div className="w-6 h-6 rounded-md overflow-hidden bg-black shrink-0 border border-slate-200 dark:border-zinc-800">
+              <img
+                src="/logo.jpg"
+                alt="Garasi Anak Mama"
+                className="w-full h-full object-cover"
+              />
             </div>
             <div>
               <span className="font-bold text-zinc-900 dark:text-zinc-100">

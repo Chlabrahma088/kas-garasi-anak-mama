@@ -16,6 +16,10 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: 'Garasi Anak Mama - Manajemen Keuangan & Stok Mobil Bekas',
   description: 'Ada doa mama di setiap mobil. Aplikasi akuntansi HPP unit mobil bekas, arus kas, dan bagi hasil partner investor.',
+  icons: {
+    icon: '/logo.jpg',
+    apple: '/logo.jpg',
+  },
   appleWebApp: {
     capable: true,
     statusBarStyle: 'default',
