@@ -6,7 +6,7 @@ export const INITIAL_WALLETS: Wallet[] = [
     name: 'Rekening Bisnis (BCA)',
     type: 'bank',
     accountNumber: 'BCA Garasi',
-    balance: 45000000,
+    balance: 330000000,
   },
   {
     id: 'w2',
@@ -30,11 +30,15 @@ export const INITIAL_CARS: CarUnit[] = [
     purchaseDate: '2026-11-01',
     purchasePrice: 277000000,
     walletIdPurchase: 'w1',
-    status: 'ready',
+    status: 'sold',
     targetSellingPrice: 310000000,
     dpAmount: 0,
+    finalSellingPrice: 285000000,
+    sellingExpenses: 0,
+    soldDate: '2026-11-23',
+    walletIdSale: 'w1',
     photoUrl: 'https://images.unsplash.com/photo-1541899481282-d53bffe3c35d?auto=format&fit=crop&w=1000&q=80',
-    notes: 'Unit istimewa, interior retrim steer baru, salon rapi, pajak panjang 5.2jt siap gas.',
+    notes: 'LAKU 285jt! Beli 277jt + Rekon 6.85jt (Retrim 800rb, Salon 700rb, Pajak 5.2jt, Plat 150rb). Total HPP 283.85jt. Cuan Bersih +1.15jt!',
     partners: [
       {
         id: 'p-hrv',
@@ -43,8 +47,8 @@ export const INITIAL_CARS: CarUnit[] = [
         capitalAmount: 277000000,
         capitalPercentage: 100,
         profitSharePercentage: 100,
-        profitAmount: 0,
-        transferStatus: 'pending',
+        profitAmount: 1150000,
+        transferStatus: 'transferred',
       },
     ],
     reconditionExpenses: [
@@ -487,5 +491,15 @@ export const INITIAL_TRANSACTIONS: CashTransaction[] = [
     description: 'Pelunasan Terjual Toyota Fortuner 2022 2.8 GR (Laku 409jt)',
     transactionDate: '2026-11-15',
     unitId: 'unit-fortuner-2022',
+  },
+  {
+    id: 'tx-hrv-in',
+    walletId: 'w1',
+    transactionType: 'inflow',
+    category: 'car_sale',
+    amount: 285000000,
+    description: 'Pelunasan Terjual Honda HR-V SE 1.5 CVT (Laku 285jt)',
+    transactionDate: '2026-11-23',
+    unitId: 'unit-hrv-2022',
   },
 ];
