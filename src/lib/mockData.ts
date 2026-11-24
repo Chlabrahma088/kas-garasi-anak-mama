@@ -6,7 +6,7 @@ export const INITIAL_WALLETS: Wallet[] = [
     name: 'Rekening Mandiri (Pribadi)',
     type: 'bank',
     accountNumber: 'Mandiri Pribadi',
-    balance: 228321000,
+    balance: 218321000,
   },
 ];
 
@@ -639,5 +639,14 @@ export const INITIAL_TRANSACTIONS: CashTransaction[] = [
     description: 'Total Rekondisi City Hatchback 2023 (7 Nota Bengkel & Komisi)',
     transactionDate: '2026-11-14',
     unitId: 'unit-city-2023',
+  },
+  {
+    id: 'tx-prive-1',
+    walletId: 'w1',
+    transactionType: 'outflow',
+    category: 'prive_withdrawal',
+    amount: 10000000,
+    description: 'Tarik Keuntungan Penjualan / Prive Owner (Dipakai Pribadi)',
+    transactionDate: '2026-11-20',
   },
 ];
