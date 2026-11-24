@@ -31,6 +31,7 @@ import {
   Calendar,
   Zap,
   ExternalLink,
+  Share2,
 } from 'lucide-react';
 
 interface CarDetailModalProps {
@@ -78,6 +79,30 @@ export const CarDetailModal: React.FC<CarDetailModalProps> = ({ unitId, onClose 
 
   // Live Profit Simulator
   const [simulatedPrice, setSimulatedPrice] = useState<number>(car?.targetSellingPrice || 0);
+  const [isCopiedWa, setIsCopiedWa] = useState(false);
+
+  const handleCopyWhatsApp = () => {
+    if (!car) return;
+    const text = [
+      `*Bismillah Dijual: ${car.brand} ${car.model} (${car.year})*`,
+      `• Plat Nomor: ${car.licensePlate}`,
+      `• Transmisi: ${car.transmission} • Warna: ${car.color}`,
+      `• Odometer: ${(car.odometer).toLocaleString('id-ID')} KM`,
+      car.notes ? `• Spek & Kondisi: ${car.notes.replace(/\[META:.*?\]/g, '').trim()}` : '',
+      car.targetSellingPrice > 0 ? `• Harga: ${formatRupiah(car.targetSellingPrice)} (Nego)` : '',
+      `• Lokasi Showroom: Garasi Anak Mama, Jelupang Serpong`,
+      car.instagramUrl ? `📸 Post Instagram: ${car.instagramUrl}` : '',
+      `🌐 Katalog Web: https://kas-garasi-anak-mama.vercel.app`,
+    ]
+      .filter(Boolean)
+      .join('\n');
+
+    if (navigator?.clipboard) {
+      navigator.clipboard.writeText(text);
+      setIsCopiedWa(true);
+      setTimeout(() => setIsCopiedWa(false), 2500);
+    }
+  };
 
   if (!car) return null;
 
@@ -172,6 +197,14 @@ export const CarDetailModal: React.FC<CarDetailModalProps> = ({ unitId, onClose 
           </div>
 
           <div className="flex items-center gap-2 print:hidden">
+            <button
+              onClick={handleCopyWhatsApp}
+              className="px-2.5 py-1.5 text-emerald-700 dark:text-emerald-400 hover:text-emerald-800 rounded-lg bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800 hover:bg-emerald-100 transition flex items-center gap-1.5 text-xs font-bold active:scale-95"
+              title="Salin spek mobil siap kirim ke calon pembeli di WhatsApp"
+            >
+              <Share2 className="w-3.5 h-3.5" />
+              <span>{isCopiedWa ? '✓ Tersalin!' : 'Salin WA'}</span>
+            </button>
             <button
               onClick={handlePrint}
               className="p-2 text-slate-600 hover:text-slate-900 rounded-lg hover:bg-slate-200 transition flex items-center gap-1.5 text-xs font-bold"

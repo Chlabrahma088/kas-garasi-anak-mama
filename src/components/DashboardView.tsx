@@ -17,6 +17,9 @@ import {
   Plus,
   ChevronRight,
   PieChart,
+  CreditCard,
+  Sparkles,
+  ShieldCheck,
 } from 'lucide-react';
 import {
   ResponsiveContainer,
@@ -42,7 +45,7 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
   onOpenQuickAction,
   onOpenAddCar,
 }) => {
-  const { cars, wallets, transactions, isDark } = useApp();
+  const { cars, wallets, transactions, isDark, updateCar, addCashTransaction } = useApp();
   const [profitFilter, setProfitFilter] = useState<'month' | 'year' | 'all'>('all');
 
   // 1. Modal Tertanam (HPP Unit Belum Terjual)
@@ -55,11 +58,52 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
   // 2. Saldo Kas Tersedia
   const totalKasTersedia = wallets.reduce((sum, w) => sum + w.balance, 0);
 
-  // 3. Status Count
+  // 3. Piutang Pelunasan Unit (Booked / DP)
+  const bookedCars = cars.filter((c) => c.status === 'booked');
+  const totalPiutang = bookedCars.reduce((sum, c) => {
+    const price = c.finalSellingPrice || c.targetSellingPrice;
+    const dp = c.dpAmount || 0;
+    return sum + Math.max(0, price - dp);
+  }, 0);
+
+  // 4. Total Valuasi Kekayaan Bersih Garasi (Kas + Modal Stok + Piutang)
+  const totalValuasiAset = totalKasTersedia + totalModalTertanam + totalPiutang;
+
+  // 5. Status Count
   const countWorkshop = cars.filter((c) => c.status === 'workshop').length;
   const countReady = cars.filter((c) => c.status === 'ready').length;
   const countBooked = cars.filter((c) => c.status === 'booked').length;
   const countSold = cars.filter((c) => c.status === 'sold').length;
+
+  // Handler Terima Pelunasan HR-V Padang
+  const handleSettleHrvPadang = () => {
+    const hrv = cars.find((c) => c.id === 'unit-hrv-2021');
+    if (!hrv) return;
+    const sisa = (hrv.targetSellingPrice || 210000000) - (hrv.dpAmount || 105000000);
+    const confirm = window.confirm(
+      `Konfirmasi terima pelunasan akhir Honda HR-V SE 2021 (Padang) sebesar ${formatRupiah(sisa)} ke Rekening Mandiri?`
+    );
+    if (!confirm) return;
+
+    const today = new Date().toISOString().split('T')[0];
+    updateCar(hrv.id, {
+      status: 'sold',
+      finalSellingPrice: 210000000,
+      soldDate: today,
+    });
+
+    addCashTransaction({
+      walletId: wallets[0]?.id || 'w1',
+      transactionType: 'inflow',
+      category: 'car_sale',
+      amount: sisa,
+      description: 'Pelunasan Akhir Honda HR-V SE 2021 Padang (Lunas 210jt)',
+      transactionDate: today,
+      unitId: hrv.id,
+    });
+
+    alert(`Pelunasan ${formatRupiah(sisa)} berhasil dicatat! Saldo Rekening Mandiri bertambah.`);
+  };
 
   // 4. Net Profit Realized based on filter
   const soldCars = cars.filter((c) => c.status === 'sold');
@@ -120,7 +164,69 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
   }, [soldCars, currentDate]);
 
   return (
-    <div className="space-y-6 pb-20 md:pb-10">
+    <div className="space-y-5 pb-20 md:pb-10">
+      {/* Valuasi Total Kekayaan Bersih Garasi (Kas + Modal Stok + Piutang) */}
+      <div className="p-4 sm:p-5 rounded-2xl bg-gradient-to-r from-slate-900 via-slate-850 to-zinc-900 border border-slate-800 text-white shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div>
+          <div className="flex items-center gap-2 mb-1">
+            <span className="px-2 py-0.5 rounded text-[10px] font-black uppercase tracking-wider bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">
+              Total Valuasi Aset Garasi
+            </span>
+            <span className="text-xs text-slate-400">Kas + Modal Stok + Piutang Masuk</span>
+          </div>
+          <div className="text-2xl sm:text-3xl font-black font-mono tracking-tight text-white">
+            {formatRupiah(totalValuasiAset)}
+          </div>
+        </div>
+
+        <div className="grid grid-cols-3 gap-3 pt-3 md:pt-0 border-t md:border-t-0 md:border-l border-slate-700/80 md:pl-5 text-xs">
+          <div>
+            <span className="text-[10px] uppercase font-semibold text-slate-400 block">1. Kas Mandiri</span>
+            <span className="font-bold font-mono text-emerald-400 text-xs sm:text-sm">{formatRupiah(totalKasTersedia)}</span>
+          </div>
+          <div>
+            <span className="text-[10px] uppercase font-semibold text-slate-400 block">2. Modal Stok</span>
+            <span className="font-bold font-mono text-amber-400 text-xs sm:text-sm">{formatRupiah(totalModalTertanam)}</span>
+          </div>
+          <div>
+            <span className="text-[10px] uppercase font-semibold text-slate-400 block">3. Sisa Piutang</span>
+            <span className="font-bold font-mono text-blue-400 text-xs sm:text-sm">{formatRupiah(totalPiutang)}</span>
+          </div>
+        </div>
+      </div>
+
+      {/* Alert / Aksi Cepat: Piutang Pelunasan Unit (Contoh: HR-V Padang Rp 105 Jt) */}
+      {totalPiutang > 0 && (
+        <div className="p-4 rounded-xl bg-blue-50/90 dark:bg-blue-950/30 border border-blue-200 dark:border-blue-800/60 flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-2xs">
+          <div className="flex items-center gap-3">
+            <div className="w-9 h-9 rounded-xl bg-blue-600 text-white flex items-center justify-center font-bold shrink-0 shadow-xs">
+              <CreditCard className="w-5 h-5" />
+            </div>
+            <div>
+              <div className="flex items-center gap-2">
+                <span className="font-bold text-xs text-blue-900 dark:text-blue-200">
+                  Piutang Pelunasan Unit: Honda HR-V SE 2021 (Padang)
+                </span>
+                <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-blue-200 text-blue-800 dark:bg-blue-900 dark:text-blue-200">
+                  DP Masuk 105jt
+                </span>
+              </div>
+              <p className="text-xs text-slate-600 dark:text-zinc-400 mt-0.5">
+                Terjual Rp 210jt, sisa yang belum dilunasi: <strong className="font-mono text-blue-700 dark:text-blue-300">Rp 105.000.000</strong>
+              </p>
+            </div>
+          </div>
+
+          <button
+            onClick={handleSettleHrvPadang}
+            className="inline-flex items-center justify-center gap-1.5 px-3.5 py-2 text-xs font-bold rounded-xl bg-blue-600 hover:bg-blue-700 text-white shadow-xs transition active:scale-95 shrink-0"
+          >
+            <CheckCircle2 className="w-4 h-4" />
+            <span>+ Catat Pelunasan Masuk (105jt)</span>
+          </button>
+        </div>
+      )}
+
       {/* 4 Main KPI Cards - Simple, High Contrast, Sangat Jelas (Jalur Seduh style) */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         {/* Card 1: Modal Tertanam */}

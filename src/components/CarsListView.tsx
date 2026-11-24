@@ -18,6 +18,7 @@ import {
   Calendar,
   Zap,
   ExternalLink,
+  Share2,
 } from 'lucide-react';
 
 interface CarsListViewProps {
@@ -34,6 +35,29 @@ export const CarsListView: React.FC<CarsListViewProps> = ({
   const [search, setSearch] = useState('');
   const [statusFilter, setStatusFilter] = useState<'all' | UnitStatus>('all');
   const [sortBy, setSortBy] = useState<'newest' | 'hpp_high' | 'price_low'>('newest');
+  const [copiedCarId, setCopiedCarId] = useState<string | null>(null);
+
+  const handleCopyWhatsApp = (car: CarUnit) => {
+    const text = [
+      `*Bismillah Dijual: ${car.brand} ${car.model} (${car.year})*`,
+      `• Nopol: ${car.licensePlate}`,
+      `• Transmisi: ${car.transmission} • Warna: ${car.color}`,
+      `• Odometer: ${(car.odometer).toLocaleString('id-ID')} KM`,
+      car.notes ? `• Spek & Kondisi: ${car.notes.replace(/\[META:.*?\]/g, '').trim()}` : '',
+      car.targetSellingPrice > 0 ? `• Harga: ${formatRupiah(car.targetSellingPrice)} (Nego)` : '',
+      `• Lokasi Showroom: Garasi Anak Mama, Jelupang Serpong`,
+      car.instagramUrl ? `📸 Post Instagram: ${car.instagramUrl}` : '',
+      `🌐 Katalog Web: https://kas-garasi-anak-mama.vercel.app`,
+    ]
+      .filter(Boolean)
+      .join('\n');
+
+    if (navigator?.clipboard) {
+      navigator.clipboard.writeText(text);
+      setCopiedCarId(car.id);
+      setTimeout(() => setCopiedCarId(null), 2500);
+    }
+  };
 
   // Filter & Search Logic
   const filteredCars = useMemo(() => {
@@ -391,7 +415,19 @@ export const CarsListView: React.FC<CarsListViewProps> = ({
                     </span>
                   </div>
 
-                  <div className="flex items-center gap-3">
+                  <div className="flex items-center gap-2">
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleCopyWhatsApp(car);
+                      }}
+                      className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-[11px] font-bold bg-emerald-50 text-emerald-700 dark:bg-emerald-950/40 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800 hover:bg-emerald-100 transition active:scale-95"
+                      title="Salin spek mobil untuk dikirim ke pembeli di WhatsApp"
+                    >
+                      <Share2 className="w-3 h-3" />
+                      <span>{copiedCarId === car.id ? '✓ Tersalin!' : '📲 Salin WA'}</span>
+                    </button>
+
                     {car.instagramUrl && (
                       <a
                         href={car.instagramUrl}

@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useMemo } from 'react';
 import { useApp } from '@/context/AppContext';
 import { formatRupiah, calculateUnitFinancials, formatDateIndo } from '@/lib/utils';
 import {
@@ -9,6 +9,8 @@ import {
   Printer,
   Car,
   DollarSign,
+  Wrench,
+  PieChart,
 } from 'lucide-react';
 
 export const ReportsView: React.FC = () => {
@@ -36,6 +38,40 @@ export const ReportsView: React.FC = () => {
             soldCars.length
         )
       : 0;
+
+  // Breakdown Biaya Rekon per Kategori Bengkel
+  const allExpenses = useMemo(() => cars.flatMap((c) => c.reconditionExpenses), [cars]);
+  const totalAllReconditions = useMemo(
+    () => allExpenses.reduce((sum, e) => sum + e.amount, 0),
+    [allExpenses]
+  );
+
+  const categoryTotals = useMemo(() => {
+    const map: Record<string, { label: string; amount: number; count: number; barColor: string }> = {
+      body_cat: { label: 'Body & Cat / Sisip', amount: 0, count: 0, barColor: 'bg-rose-500' },
+      mesin: { label: 'Mesin & Aki', amount: 0, count: 0, barColor: 'bg-amber-500' },
+      kaki_kaki: { label: 'Kaki-kaki, Velg & Ban', amount: 0, count: 0, barColor: 'bg-blue-500' },
+      salon_detailing: { label: 'Salon & Detailing', amount: 0, count: 0, barColor: 'bg-emerald-500' },
+      pajak_surat: { label: 'Pajak & Plat Nomor', amount: 0, count: 0, barColor: 'bg-purple-500' },
+      mediator: { label: 'Pakang & Mediator', amount: 0, count: 0, barColor: 'bg-indigo-500' },
+      lainnya: { label: 'Aksesoris, Wiper & Lampu', amount: 0, count: 0, barColor: 'bg-slate-500' },
+    };
+
+    allExpenses.forEach((e) => {
+      const cat = map[e.category] ? e.category : 'lainnya';
+      map[cat].amount += e.amount;
+      map[cat].count += 1;
+    });
+
+    return Object.entries(map)
+      .map(([key, val]) => ({
+        key,
+        ...val,
+        pct: totalAllReconditions > 0 ? (val.amount / totalAllReconditions) * 100 : 0,
+      }))
+      .filter((c) => c.amount > 0)
+      .sort((a, b) => b.amount - a.amount);
+  }, [allExpenses, totalAllReconditions]);
 
   // CSV Exporters
   const downloadCSV = (content: string, fileName: string) => {
@@ -214,6 +250,66 @@ export const ReportsView: React.FC = () => {
           <span className="text-xs text-slate-500 mt-1 block">
             Holding period perputaran stok
           </span>
+        </div>
+      </div>
+
+      {/* Analisis Biaya Rekondisi per Pos Bengkel (Expense Intelligence) */}
+      <div className="p-5 sm:p-6 rounded-2xl bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-800 shadow-xs space-y-4">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+          <div>
+            <h3 className="text-sm sm:text-base font-bold text-slate-900 dark:text-zinc-100 flex items-center gap-2">
+              <Wrench className="w-4 h-4 text-emerald-600" />
+              <span>Analisis Pengeluaran Bengkel & Rekon Showroom ({formatRupiah(totalAllReconditions)})</span>
+            </h3>
+            <p className="text-xs text-slate-500 mt-0.5">
+              Rincian pos perbaikan dari total {allExpenses.length} nota bengkel untuk mengontrol efisiensi vendor
+            </p>
+          </div>
+          <span className="text-xs font-mono font-bold px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-zinc-800 text-slate-700 dark:text-zinc-300">
+            {categoryTotals.length} Pos Perbaikan Aktif
+          </span>
+        </div>
+
+        {/* Multi-segment Progress Bar */}
+        <div className="w-full h-3 bg-slate-100 dark:bg-zinc-800 rounded-full overflow-hidden flex">
+          {categoryTotals.map((cat) => (
+            <div
+              key={cat.key}
+              style={{ width: `${cat.pct}%` }}
+              className={`${cat.barColor} h-full transition`}
+              title={`${cat.label}: ${formatRupiah(cat.amount)} (${cat.pct.toFixed(1)}%)`}
+            />
+          ))}
+        </div>
+
+        {/* Category Cards Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 pt-1">
+          {categoryTotals.map((cat) => (
+            <div
+              key={cat.key}
+              className="p-3.5 rounded-xl border border-slate-200 dark:border-zinc-800 bg-slate-50/70 dark:bg-zinc-800/40 flex items-center justify-between text-xs"
+            >
+              <div className="flex items-center gap-2.5 min-w-0">
+                <span className={`w-3 h-3 rounded-full ${cat.barColor} shrink-0`} />
+                <div className="truncate">
+                  <span className="font-bold text-slate-800 dark:text-zinc-200 block truncate">
+                    {cat.label}
+                  </span>
+                  <span className="text-[11px] text-slate-500">
+                    {cat.count} Nota Servis
+                  </span>
+                </div>
+              </div>
+              <div className="text-right shrink-0 pl-2">
+                <span className="font-bold font-mono text-slate-900 dark:text-zinc-100 block">
+                  {formatRupiah(cat.amount)}
+                </span>
+                <span className="text-[11px] text-slate-500 font-mono">
+                  {cat.pct.toFixed(1)}%
+                </span>
+              </div>
+            </div>
+          ))}
         </div>
       </div>
 
