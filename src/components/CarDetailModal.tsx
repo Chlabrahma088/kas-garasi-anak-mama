@@ -16,6 +16,7 @@ import {
 } from '@/lib/utils';
 import { CurrencyInput } from './CurrencyInput';
 import { LicensePlate } from './LicensePlate';
+import { CarPhotoGallery } from './CarPhotoGallery';
 import {
   X,
   Wrench,
@@ -224,6 +225,22 @@ export const CarDetailModal: React.FC<CarDetailModalProps> = ({ unitId, onClose 
         {/* Modal Body - Scrollable with iOS Safe Area support */}
         <div className="p-4 sm:p-6 space-y-5 overflow-y-auto pb-[calc(2rem+env(safe-area-inset-bottom,0px))] sm:pb-6 print:max-h-none print:overflow-visible">
           
+          {/* Car Photo Gallery Carousel (Instagram multi-photos) */}
+          <div className="print:hidden">
+            <CarPhotoGallery
+              photos={
+                car.galleryUrls && car.galleryUrls.length > 0
+                  ? car.galleryUrls
+                  : car.photoUrl
+                  ? [car.photoUrl]
+                  : []
+              }
+              carName={`${car.brand} ${car.model} (${car.year})`}
+              plateNumber={car.licensePlate}
+              instagramUrl={car.instagramUrl}
+            />
+          </div>
+
           {/* Status Bar & Quick Actions - Simple & Clear */}
           <div className="flex flex-wrap items-center justify-between gap-3 p-3.5 rounded-xl bg-slate-50 dark:bg-zinc-800/60 border border-slate-200 dark:border-zinc-700/60 print:hidden">
             <div className="flex items-center gap-2">

@@ -20,7 +20,7 @@ export async function fetchCarsFromSupabase(): Promise<CarUnit[] | null> {
     const { data: partners } = await supabase.from('unit_partners').select('*');
 
     const mappedCars: CarUnit[] = units.map((u: any) => {
-      let meta: { postingDate?: string; instagramUrl?: string } = {};
+      let meta: { postingDate?: string; instagramUrl?: string; galleryUrls?: string[] } = {};
       let cleanNotes = u.notes || '';
       if (cleanNotes.includes('[META:')) {
         try {
@@ -35,6 +35,7 @@ export async function fetchCarsFromSupabase(): Promise<CarUnit[] | null> {
       }
       const postingDate = u.posting_date || meta.postingDate || undefined;
       const instagramUrl = u.instagram_url || meta.instagramUrl || undefined;
+      const galleryUrls = meta.galleryUrls || (u.photo_url ? [u.photo_url] : undefined);
 
       const carExpenses: ReconditionExpense[] = (expenses || [])
         .filter((e: any) => e.unit_id === u.id)
@@ -84,6 +85,7 @@ export async function fetchCarsFromSupabase(): Promise<CarUnit[] | null> {
         soldDate: u.sold_date || undefined,
         walletIdSale: u.wallet_id_sale || undefined,
         photoUrl: u.photo_url || 'https://images.unsplash.com/photo-1590362891991-f776e747a588?auto=format&fit=crop&w=1000&q=80',
+        galleryUrls,
         notes: cleanNotes,
         postingDate,
         instagramUrl,
@@ -169,8 +171,12 @@ export async function fetchTransactionsFromSupabase(): Promise<CashTransaction[]
 export async function insertCarToSupabase(car: CarUnit, initialExpenses: ReconditionExpense[] = []) {
   try {
     let notesToSave = car.notes || '';
-    if (car.postingDate || car.instagramUrl) {
-      const meta = { postingDate: car.postingDate, instagramUrl: car.instagramUrl };
+    if (car.postingDate || car.instagramUrl || (car.galleryUrls && car.galleryUrls.length > 0)) {
+      const meta = {
+        postingDate: car.postingDate,
+        instagramUrl: car.instagramUrl,
+        galleryUrls: car.galleryUrls,
+      };
       notesToSave = `${notesToSave} [META:${JSON.stringify(meta)}]`.trim();
     }
 
@@ -241,10 +247,14 @@ export async function updateCarInSupabase(id: string, updates: Partial<CarUnit>)
     if (updates.soldDate) payload.sold_date = updates.soldDate;
     if (updates.walletIdSale) payload.wallet_id_sale = updates.walletIdSale;
     if (updates.targetSellingPrice !== undefined) payload.target_selling_price = updates.targetSellingPrice;
-    if (updates.notes !== undefined || updates.postingDate !== undefined || updates.instagramUrl !== undefined) {
+    if (updates.notes !== undefined || updates.postingDate !== undefined || updates.instagramUrl !== undefined || updates.galleryUrls !== undefined) {
       let notesToSave = updates.notes !== undefined ? updates.notes : '';
-      if (updates.postingDate || updates.instagramUrl) {
-        const meta = { postingDate: updates.postingDate, instagramUrl: updates.instagramUrl };
+      if (updates.postingDate || updates.instagramUrl || updates.galleryUrls) {
+        const meta = {
+          postingDate: updates.postingDate,
+          instagramUrl: updates.instagramUrl,
+          galleryUrls: updates.galleryUrls,
+        };
         notesToSave = `${notesToSave} [META:${JSON.stringify(meta)}]`.trim();
       }
       payload.notes = notesToSave;

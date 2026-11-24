@@ -32,7 +32,16 @@ export const INITIAL_CARS: CarUnit[] = [
     soldDate: '2026-09-18',
     instagramUrl: 'https://www.instagram.com/p/DcK1O-xGC30/',
     walletIdSale: 'w1',
-    photoUrl: '/cars/hrv-2022.jpg',
+    photoUrl: '/cars/hrv-2022/slide-1.jpg',
+    galleryUrls: [
+        "/cars/hrv-2022/slide-1.jpg",
+        "/cars/hrv-2022/slide-2.jpg",
+        "/cars/hrv-2022/slide-3.jpg",
+        "/cars/hrv-2022/slide-4.jpg",
+        "/cars/hrv-2022/slide-5.jpg",
+        "/cars/hrv-2022/slide-6.jpg",
+        "/cars/hrv-2022/slide-7.jpg"
+    ],
     notes: '[SOLD, 18 September 2026] Bismillah for sale Honda HR-V SE 2022 Full Original no repaint no repair. Record Honda KM 68rb. Retrim Steer Napa Leather, Detailing, Pajak On 09-27 DKI, Frameplate JDM. Laku 285jt (Nego dari 299jt). Cuan Bersih +1.15jt.',
     partners: [
       {
@@ -105,7 +114,16 @@ export const INITIAL_CARS: CarUnit[] = [
     soldDate: '2026-10-08',
     instagramUrl: 'https://www.instagram.com/p/DdBah1sGOzv/',
     walletIdDp: 'w1',
-    photoUrl: '/cars/hrv-2021.jpg',
+    photoUrl: '/cars/hrv-2021/slide-1.jpg',
+    galleryUrls: [
+        "/cars/hrv-2021/slide-1.jpg",
+        "/cars/hrv-2021/slide-2.jpg",
+        "/cars/hrv-2021/slide-3.jpg",
+        "/cars/hrv-2021/slide-4.jpg",
+        "/cars/hrv-2021/slide-5.jpg",
+        "/cars/hrv-2021/slide-6.jpg",
+        "/cars/hrv-2021/slide-7.jpg"
+    ],
     notes: '[SOLD, 8 Oktober 2026] Honda HR-V SE 2021 Full Original Record Honda KM 74rb. Autoretract, Ban 4 BFG baru, Wiper/Klakson PIAA. Terjual Rp 210jt ke Padang, baru dibayar termin Rp 105jt (sisa Rp 105jt). Modal pribadi owner.',
     partners: [
       {
@@ -142,7 +160,16 @@ export const INITIAL_CARS: CarUnit[] = [
     soldDate: '2026-09-14',
     instagramUrl: 'https://www.instagram.com/p/DdGukwwmErm/',
     walletIdSale: 'w1',
-    photoUrl: '/cars/altis-2015.jpg',
+    photoUrl: '/cars/altis-2015/slide-1.jpg',
+    galleryUrls: [
+        "/cars/altis-2015/slide-1.jpg",
+        "/cars/altis-2015/slide-2.jpg",
+        "/cars/altis-2015/slide-3.jpg",
+        "/cars/altis-2015/slide-4.jpg",
+        "/cars/altis-2015/slide-5.jpg",
+        "/cars/altis-2015/slide-6.jpg",
+        "/cars/altis-2015/slide-7.jpg"
+    ],
     notes: '[SOLD, 14 September 2026] Toyota Corolla Altis 1.8 V 2015 Full Original Record Toyota KM 112rb. Peremajaan kaki-kaki, shock baru, Full Detailing, Coating. LAKU 137jt dalam 4 hari! Cuan Bersih +13jt.',
     partners: [
       {
@@ -198,7 +225,16 @@ export const INITIAL_CARS: CarUnit[] = [
     soldDate: '2026-11-10',
     instagramUrl: 'https://www.instagram.com/p/DeBrffHGLjj/',
     walletIdSale: 'w1',
-    photoUrl: '/cars/fortuner-2022.jpg',
+    photoUrl: '/cars/fortuner-2022/slide-1.jpg',
+    galleryUrls: [
+        "/cars/fortuner-2022/slide-1.jpg",
+        "/cars/fortuner-2022/slide-2.jpg",
+        "/cars/fortuner-2022/slide-3.jpg",
+        "/cars/fortuner-2022/slide-4.jpg",
+        "/cars/fortuner-2022/slide-5.jpg",
+        "/cars/fortuner-2022/slide-6.jpg",
+        "/cars/fortuner-2022/slide-7.jpg"
+    ],
     notes: '[SOLD, 10 November 2026] Toyota Fortuner 2.8 GR Sport 2022 Full Original no repaint Record Toyota KM 93rb. Detailing Autohigh, Ban 4 baru Dunlop AT25, Balance arm Thailand, Tatakan plat stainless. Terjual 409jt.',
     partners: [
       {
@@ -286,7 +322,16 @@ export const INITIAL_CARS: CarUnit[] = [
     dpAmount: 0,
     postingDate: '2026-11-23',
     instagramUrl: 'https://www.instagram.com/p/DgFFcgamFNA/',
-    photoUrl: '/cars/city-2021.jpg',
+    photoUrl: '/cars/city-2021/slide-1.jpg',
+    galleryUrls: [
+        "/cars/city-2021/slide-1.jpg",
+        "/cars/city-2021/slide-2.jpg",
+        "/cars/city-2021/slide-3.jpg",
+        "/cars/city-2021/slide-4.jpg",
+        "/cars/city-2021/slide-5.jpg",
+        "/cars/city-2021/slide-6.jpg",
+        "/cars/city-2021/slide-7.jpg"
+    ],
     notes: '[AVAILABLE] Honda City Hatchback RS 2021 Meteoroid Gray Metallic KM 48rb Record Honda. Plat B 1840 ZKS (Kaleng 07-31, Pajak 07-27). Full Original, Detailing Backyard, Frameplate JDM Honda Original, Plat JDM, Aki baru 2026, Crossbar roof rack by @mitragamma, Wiper baru depan & belakang, Lampu Interior LED Arsyled. Ditawarkan 203jt nego.',
     partners: [
       {
@@ -409,6 +454,12 @@ export const INITIAL_CARS: CarUnit[] = [
     targetSellingPrice: 230000000,
     dpAmount: 0,
     photoUrl: 'https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&w=1000&q=80',
+    galleryUrls: [
+        "https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&w=1200&q=80",
+        "https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&w=1200&q=80",
+        "https://images.unsplash.com/photo-1583121274602-3e2820c69888?auto=format&fit=crop&w=1200&q=80",
+        "https://images.unsplash.com/photo-1617814076367-b759c7d7e738?auto=format&fit=crop&w=1200&q=80"
+    ],
     notes: 'Low KM tahun muda 2023, komisi 2jt, Plat JDM, Frame plate, Wiper baru, Aki Lancer 1.9jt.',
     partners: [
       {

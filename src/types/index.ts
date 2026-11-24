@@ -70,6 +70,7 @@ export interface CarUnit {
   soldDate?: string;
   walletIdSale?: string;
   photoUrl?: string;
+  galleryUrls?: string[];
   notes?: string;
   postingDate?: string;
   instagramUrl?: string;
