@@ -86,8 +86,8 @@ export const CashBookView: React.FC = () => {
 
   return (
     <div className="space-y-4 pb-20 md:pb-10">
-      {/* Wallets Cards - 3 Clean Cards (Jalur Seduh style) */}
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+      {/* Wallets Cards - Clean & Responsive (Jalur Seduh style) */}
+      <div className={`grid grid-cols-1 ${wallets.length > 1 ? 'sm:grid-cols-3' : 'sm:grid-cols-2'} gap-4`}>
         {/* Total Available */}
         <div className="p-5 rounded-2xl bg-emerald-600 text-white shadow-xs flex flex-col justify-between">
           <div>
@@ -106,59 +106,35 @@ export const CashBookView: React.FC = () => {
           </p>
         </div>
 
-        {/* Wallet 1: Rekening Bisnis */}
-        {wallets[0] && (
-          <div className="p-5 rounded-2xl bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-800 shadow-xs flex flex-col justify-between">
+        {/* Wallets list */}
+        {wallets.map((w) => (
+          <div
+            key={w.id}
+            className="p-5 rounded-2xl bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-800 shadow-xs flex flex-col justify-between"
+          >
             <div>
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
-                  <div className="p-1.5 rounded-lg bg-blue-50 text-blue-700">
+                  <div className="p-1.5 rounded-lg bg-blue-50 text-blue-700 dark:bg-blue-950/50 dark:text-blue-300">
                     <Building className="w-4 h-4" />
                   </div>
                   <span className="text-xs font-bold text-slate-900 dark:text-zinc-100">
-                    {wallets[0].name}
+                    {w.name}
                   </span>
                 </div>
-                <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-100 text-slate-600">
-                  {wallets[0].accountNumber || 'BCA'}
+                <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-100 dark:bg-zinc-800 text-slate-600 dark:text-zinc-400">
+                  {w.accountNumber || 'Mandiri'}
                 </span>
               </div>
               <p className="text-xl sm:text-2xl font-black font-mono text-slate-900 dark:text-zinc-100 mt-3">
-                {formatRupiah(wallets[0].balance)}
+                {formatRupiah(w.balance)}
               </p>
             </div>
             <span className="text-xs text-slate-500 mt-2">
-              Khusus transfer beli mobil, DP, & pelunasan
+              Rekening utama perputaran beli unit, DP, pelunasan, & nota bengkel
             </span>
           </div>
-        )}
-
-        {/* Wallet 2: Kas Tunai */}
-        {wallets[1] && (
-          <div className="p-5 rounded-2xl bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-800 shadow-xs flex flex-col justify-between">
-            <div>
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-2">
-                  <div className="p-1.5 rounded-lg bg-amber-50 text-amber-700">
-                    <Coins className="w-4 h-4" />
-                  </div>
-                  <span className="text-xs font-bold text-slate-900 dark:text-zinc-100">
-                    {wallets[1].name}
-                  </span>
-                </div>
-                <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-100 text-slate-600">
-                  {wallets[1].accountNumber || 'Cash Box'}
-                </span>
-              </div>
-              <p className="text-xl sm:text-2xl font-black font-mono text-slate-900 dark:text-zinc-100 mt-3">
-                {formatRupiah(wallets[1].balance)}
-              </p>
-            </div>
-            <span className="text-xs text-slate-500 mt-2">
-              Khusus biaya bengkel harian, bensin, konsumsi
-            </span>
-          </div>
-        )}
+        ))}
       </div>
 
       {/* Add Mutation Collapsible Form */}

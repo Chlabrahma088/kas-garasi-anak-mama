@@ -164,9 +164,9 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
               {formatRupiah(totalKasTersedia)}
             </p>
           </div>
-          <div className="mt-3 pt-3 border-t border-slate-100 dark:border-zinc-800 flex items-center justify-between text-xs text-slate-600 dark:text-zinc-400 font-mono">
-            <span>BCA Pribadi: <strong>{formatRupiah(wallets[0]?.balance)}</strong></span>
-            <span>Kas Tunai: <strong>{formatRupiah(wallets[1]?.balance)}</strong></span>
+          <div className="mt-3 pt-3 border-t border-slate-100 dark:border-zinc-800 flex items-center justify-between text-xs text-slate-600 dark:text-zinc-400">
+            <span>{wallets[0]?.name || 'Rekening Mandiri (Pribadi)'}</span>
+            <span className="font-bold text-slate-800 dark:text-zinc-200 font-mono">100% Likuid</span>
           </div>
         </div>
 

@@ -3,17 +3,10 @@ import { Wallet, CarUnit, CashTransaction } from '@/types';
 export const INITIAL_WALLETS: Wallet[] = [
   {
     id: 'w1',
-    name: 'Rekening Pribadi (BCA)',
+    name: 'Rekening Mandiri (Pribadi)',
     type: 'bank',
-    accountNumber: 'BCA Pribadi',
-    balance: 220000000,
-  },
-  {
-    id: 'w2',
-    name: 'Kas Tunai Showroom',
-    type: 'cash',
-    accountNumber: 'Cash Box',
-    balance: 8321000,
+    accountNumber: 'Mandiri Pribadi',
+    balance: 228321000,
   },
 ];
 
@@ -57,7 +50,7 @@ export const INITIAL_CARS: CarUnit[] = [
       {
         id: 'rec-hrv-1',
         unitId: 'unit-hrv-2022',
-        walletId: 'w2',
+        walletId: 'w1',
         category: 'salon_detailing',
         description: 'Retrim Steer',
         amount: 800000,
@@ -66,7 +59,7 @@ export const INITIAL_CARS: CarUnit[] = [
       {
         id: 'rec-hrv-2',
         unitId: 'unit-hrv-2022',
-        walletId: 'w2',
+        walletId: 'w1',
         category: 'salon_detailing',
         description: 'Salon interior & eksterior',
         amount: 700000,
@@ -84,7 +77,7 @@ export const INITIAL_CARS: CarUnit[] = [
       {
         id: 'rec-hrv-4',
         unitId: 'unit-hrv-2022',
-        walletId: 'w2',
+        walletId: 'w1',
         category: 'pajak_surat',
         description: 'Plat nomor',
         amount: 150000,
@@ -232,7 +225,7 @@ export const INITIAL_CARS: CarUnit[] = [
       {
         id: 'rec-fortuner-2',
         unitId: 'unit-fortuner-2022',
-        walletId: 'w2',
+        walletId: 'w1',
         category: 'salon_detailing',
         description: 'Detailing body',
         amount: 1000000,
@@ -241,7 +234,7 @@ export const INITIAL_CARS: CarUnit[] = [
       {
         id: 'rec-fortuner-3',
         unitId: 'unit-fortuner-2022',
-        walletId: 'w2',
+        walletId: 'w1',
         category: 'lainnya',
         description: 'Tatakan Plat',
         amount: 190000,
@@ -250,7 +243,7 @@ export const INITIAL_CARS: CarUnit[] = [
       {
         id: 'rec-fortuner-4',
         unitId: 'unit-fortuner-2022',
-        walletId: 'w2',
+        walletId: 'w1',
         category: 'pajak_surat',
         description: 'Plat nomor',
         amount: 160000,
@@ -268,7 +261,7 @@ export const INITIAL_CARS: CarUnit[] = [
       {
         id: 'rec-fortuner-6',
         unitId: 'unit-fortuner-2022',
-        walletId: 'w2',
+        walletId: 'w1',
         category: 'salon_detailing',
         description: 'Salon finishing',
         amount: 1000000,
@@ -320,7 +313,7 @@ export const INITIAL_CARS: CarUnit[] = [
       {
         id: 'rec-city21-2',
         unitId: 'unit-city-2021',
-        walletId: 'w2',
+        walletId: 'w1',
         category: 'lainnya',
         description: 'Lampu Kabin',
         amount: 572000,
@@ -329,7 +322,7 @@ export const INITIAL_CARS: CarUnit[] = [
       {
         id: 'rec-city21-3',
         unitId: 'unit-city-2021',
-        walletId: 'w2',
+        walletId: 'w1',
         category: 'pajak_surat',
         description: 'Plat No JDM',
         amount: 150000,
@@ -347,7 +340,7 @@ export const INITIAL_CARS: CarUnit[] = [
       {
         id: 'rec-city21-5',
         unitId: 'unit-city-2021',
-        walletId: 'w2',
+        walletId: 'w1',
         category: 'salon_detailing',
         description: 'Poles bodi',
         amount: 1000000,
@@ -356,7 +349,7 @@ export const INITIAL_CARS: CarUnit[] = [
       {
         id: 'rec-city21-6',
         unitId: 'unit-city-2021',
-        walletId: 'w2',
+        walletId: 'w1',
         category: 'lainnya',
         description: 'Frame Plate',
         amount: 900000,
@@ -365,7 +358,7 @@ export const INITIAL_CARS: CarUnit[] = [
       {
         id: 'rec-city21-7',
         unitId: 'unit-city-2021',
-        walletId: 'w2',
+        walletId: 'w1',
         category: 'lainnya',
         description: 'Wiper Depan',
         amount: 125000,
@@ -374,7 +367,7 @@ export const INITIAL_CARS: CarUnit[] = [
       {
         id: 'rec-city21-8',
         unitId: 'unit-city-2021',
-        walletId: 'w2',
+        walletId: 'w1',
         category: 'lainnya',
         description: 'Wiper Belakang',
         amount: 80000,
@@ -383,7 +376,7 @@ export const INITIAL_CARS: CarUnit[] = [
       {
         id: 'rec-city21-9',
         unitId: 'unit-city-2021',
-        walletId: 'w2',
+        walletId: 'w1',
         category: 'lainnya',
         description: 'Crossbar Jepit BFR',
         amount: 825000,
@@ -442,7 +435,7 @@ export const INITIAL_CARS: CarUnit[] = [
       {
         id: 'rec-city23-2',
         unitId: 'unit-city-2023',
-        walletId: 'w2',
+        walletId: 'w1',
         category: 'lainnya',
         description: 'Wiper Depan',
         amount: 220000,
@@ -451,7 +444,7 @@ export const INITIAL_CARS: CarUnit[] = [
       {
         id: 'rec-city23-3',
         unitId: 'unit-city-2023',
-        walletId: 'w2',
+        walletId: 'w1',
         category: 'lainnya',
         description: 'Wiper Belakang',
         amount: 80000,
@@ -460,7 +453,7 @@ export const INITIAL_CARS: CarUnit[] = [
       {
         id: 'rec-city23-4',
         unitId: 'unit-city-2023',
-        walletId: 'w2',
+        walletId: 'w1',
         category: 'lainnya',
         description: 'Frame Plate',
         amount: 900000,
@@ -469,7 +462,7 @@ export const INITIAL_CARS: CarUnit[] = [
       {
         id: 'rec-city23-5',
         unitId: 'unit-city-2023',
-        walletId: 'w2',
+        walletId: 'w1',
         category: 'pajak_surat',
         description: 'Plat No JDM',
         amount: 153000,
@@ -478,7 +471,7 @@ export const INITIAL_CARS: CarUnit[] = [
       {
         id: 'rec-city23-6',
         unitId: 'unit-city-2023',
-        walletId: 'w2',
+        walletId: 'w1',
         category: 'lainnya',
         description: 'Lampu Kabin',
         amount: 524000,
@@ -519,7 +512,7 @@ export const INITIAL_TRANSACTIONS: CashTransaction[] = [
   },
   {
     id: 'tx-rec-hrv22',
-    walletId: 'w2',
+    walletId: 'w1',
     transactionType: 'outflow',
     category: 'recondition',
     amount: 6850000,
@@ -619,7 +612,7 @@ export const INITIAL_TRANSACTIONS: CashTransaction[] = [
   },
   {
     id: 'tx-rec-city21',
-    walletId: 'w2',
+    walletId: 'w1',
     transactionType: 'outflow',
     category: 'recondition',
     amount: 8202000,
@@ -639,7 +632,7 @@ export const INITIAL_TRANSACTIONS: CashTransaction[] = [
   },
   {
     id: 'tx-rec-city23',
-    walletId: 'w2',
+    walletId: 'w1',
     transactionType: 'outflow',
     category: 'recondition',
     amount: 5777000,
