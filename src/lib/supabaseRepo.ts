@@ -22,15 +22,17 @@ export async function fetchCarsFromSupabase(): Promise<CarUnit[] | null> {
     const mappedCars: CarUnit[] = units.map((u: any) => {
       let meta: { postingDate?: string; instagramUrl?: string; galleryUrls?: string[] } = {};
       let cleanNotes = u.notes || '';
-      if (cleanNotes.includes('[META:')) {
-        try {
-          const match = cleanNotes.match(/\[META:(.*?)\]/);
-          if (match) {
-            meta = JSON.parse(match[1]);
-            cleanNotes = cleanNotes.replace(/\[META:.*?\]/, '').trim();
+      const metaStart = cleanNotes.indexOf('[META:');
+      if (metaStart !== -1) {
+        const metaEnd = cleanNotes.lastIndexOf(']');
+        if (metaEnd > metaStart) {
+          try {
+            const jsonStr = cleanNotes.slice(metaStart + 6, metaEnd);
+            meta = JSON.parse(jsonStr);
+            cleanNotes = (cleanNotes.slice(0, metaStart) + cleanNotes.slice(metaEnd + 1)).trim();
+          } catch {
+            // fallback
           }
-        } catch {
-          // fallback
         }
       }
       const postingDate = u.posting_date || meta.postingDate || undefined;
