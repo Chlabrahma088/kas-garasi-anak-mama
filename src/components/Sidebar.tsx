@@ -163,8 +163,8 @@ export const Sidebar: React.FC<SidebarProps> = ({
             {formatRupiah(totalCash)}
           </div>
           <div className="flex items-center justify-between text-[10px] text-slate-500 mt-1 pt-1 border-t border-slate-200/60 dark:border-zinc-700/40">
-            <span>{wallets[0]?.name?.split(' ')[0] || 'BCA'}: {formatRupiah(wallets[0]?.balance || 0)}</span>
-            <span>Kas: {formatRupiah(wallets[1]?.balance || 0)}</span>
+            <span>BCA Pribadi: {formatRupiah(wallets[0]?.balance || 0)}</span>
+            <span>Kas Tunai: {formatRupiah(wallets[1]?.balance || 0)}</span>
           </div>
         </div>
 

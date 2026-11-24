@@ -165,8 +165,8 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
             </p>
           </div>
           <div className="mt-3 pt-3 border-t border-slate-100 dark:border-zinc-800 flex items-center justify-between text-xs text-slate-600 dark:text-zinc-400 font-mono">
-            <span>BCA: <strong>{formatRupiah(wallets[0]?.balance)}</strong></span>
-            <span>Cash: <strong>{formatRupiah(wallets[1]?.balance)}</strong></span>
+            <span>BCA Pribadi: <strong>{formatRupiah(wallets[0]?.balance)}</strong></span>
+            <span>Kas Tunai: <strong>{formatRupiah(wallets[1]?.balance)}</strong></span>
           </div>
         </div>
 
