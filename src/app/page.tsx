@@ -122,7 +122,7 @@ function DashboardContent() {
         </header>
 
         {/* View Content Body */}
-        <main className="flex-1 max-w-7xl w-full mx-auto px-3 sm:px-6 lg:px-8 py-5 pb-24 md:pb-10">
+        <main className="flex-1 max-w-7xl w-full mx-auto px-3 sm:px-6 lg:px-8 py-4 sm:py-5 pb-28 md:pb-10">
           {currentTab === 'dashboard' && (
             <DashboardView
               onSelectUnit={(id) => setSelectedUnitId(id)}
@@ -162,54 +162,54 @@ function DashboardContent() {
         </footer>
       </div>
 
-      {/* Mobile Bottom Navigation Bar (Jalur Seduh / POS Thumb Navigation) */}
-      <nav className="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-white/95 dark:bg-zinc-900/95 backdrop-blur-md border-t border-slate-200 dark:border-zinc-800 px-2 py-1.5 flex items-center justify-around shadow-lg print:hidden">
+      {/* Mobile Bottom Navigation Bar (iPhone Pro Max Safe Area & Thumb-Friendly POS) */}
+      <nav className="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-white/95 dark:bg-zinc-900/95 backdrop-blur-md border-t border-slate-200/90 dark:border-zinc-800 px-3 pt-2 pb-[calc(0.65rem+env(safe-area-inset-bottom,0px))] flex items-center justify-around shadow-xl print:hidden">
         <button
           onClick={() => setCurrentTab('dashboard')}
-          className={`flex flex-col items-center gap-1 py-1 px-3 rounded-xl transition ${
+          className={`flex flex-col items-center justify-center gap-1 py-1.5 px-3 rounded-2xl transition active:scale-95 min-h-[46px] ${
             currentTab === 'dashboard'
-              ? 'text-emerald-700 dark:text-emerald-400 font-bold'
-              : 'text-slate-500 dark:text-zinc-400 font-medium'
+              ? 'text-emerald-700 dark:text-emerald-400 font-black bg-emerald-50 dark:bg-emerald-950/50 shadow-2xs'
+              : 'text-slate-500 dark:text-zinc-400 font-semibold hover:text-slate-800 dark:hover:text-zinc-200'
           }`}
         >
           <LayoutDashboard className="w-5 h-5" />
-          <span className="text-[10px]">Ringkasan</span>
+          <span className="text-[10px] tracking-tight">Ringkasan</span>
         </button>
 
         <button
           onClick={() => setCurrentTab('cars')}
-          className={`flex flex-col items-center gap-1 py-1 px-3 rounded-xl transition ${
+          className={`flex flex-col items-center justify-center gap-1 py-1.5 px-3 rounded-2xl transition active:scale-95 min-h-[46px] ${
             currentTab === 'cars'
-              ? 'text-emerald-700 dark:text-emerald-400 font-bold'
-              : 'text-slate-500 dark:text-zinc-400 font-medium'
+              ? 'text-emerald-700 dark:text-emerald-400 font-black bg-emerald-50 dark:bg-emerald-950/50 shadow-2xs'
+              : 'text-slate-500 dark:text-zinc-400 font-semibold hover:text-slate-800 dark:hover:text-zinc-200'
           }`}
         >
           <Car className="w-5 h-5" />
-          <span className="text-[10px]">Stok Mobil</span>
+          <span className="text-[10px] tracking-tight">Stok Mobil</span>
         </button>
 
         <button
           onClick={() => setCurrentTab('cash')}
-          className={`flex flex-col items-center gap-1 py-1 px-3 rounded-xl transition ${
+          className={`flex flex-col items-center justify-center gap-1 py-1.5 px-3 rounded-2xl transition active:scale-95 min-h-[46px] ${
             currentTab === 'cash'
-              ? 'text-emerald-700 dark:text-emerald-400 font-bold'
-              : 'text-slate-500 dark:text-zinc-400 font-medium'
+              ? 'text-emerald-700 dark:text-emerald-400 font-black bg-emerald-50 dark:bg-emerald-950/50 shadow-2xs'
+              : 'text-slate-500 dark:text-zinc-400 font-semibold hover:text-slate-800 dark:hover:text-zinc-200'
           }`}
         >
           <Wallet className="w-5 h-5" />
-          <span className="text-[10px]">Buku Kas</span>
+          <span className="text-[10px] tracking-tight">Buku Kas</span>
         </button>
 
         <button
           onClick={() => setCurrentTab('reports')}
-          className={`flex flex-col items-center gap-1 py-1 px-3 rounded-xl transition ${
+          className={`flex flex-col items-center justify-center gap-1 py-1.5 px-3 rounded-2xl transition active:scale-95 min-h-[46px] ${
             currentTab === 'reports'
-              ? 'text-emerald-700 dark:text-emerald-400 font-bold'
-              : 'text-slate-500 dark:text-zinc-400 font-medium'
+              ? 'text-emerald-700 dark:text-emerald-400 font-black bg-emerald-50 dark:bg-emerald-950/50 shadow-2xs'
+              : 'text-slate-500 dark:text-zinc-400 font-semibold hover:text-slate-800 dark:hover:text-zinc-200'
           }`}
         >
           <FileSpreadsheet className="w-5 h-5" />
-          <span className="text-[10px]">Laporan</span>
+          <span className="text-[10px] tracking-tight">Laporan</span>
         </button>
       </nav>
 
