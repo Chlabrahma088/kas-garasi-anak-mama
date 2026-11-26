@@ -184,94 +184,107 @@ export const ReportsView: React.FC = () => {
   return (
     <div className="space-y-4 pb-20 md:pb-10">
       {/* Top Action Bar (Jalur Seduh style) */}
-      <div className="flex items-center justify-between pb-1 border-b border-slate-200 dark:border-zinc-800">
+      <div className="flex items-center justify-between pb-3 border-b border-slate-200/90 dark:border-zinc-800">
         <div>
-          <h3 className="text-sm font-bold text-slate-800 dark:text-zinc-200">
-            Rekapitulasi Keuangan & Performa Penjualan
+          <h3 className="text-base sm:text-lg font-black text-slate-900 dark:text-zinc-100 tracking-tight">
+            Rekapitulasi Keuangan & Performa Showroom
           </h3>
-          <p className="text-xs text-slate-500">
-            Laba bersih, margin, holding period unit laku, & ekspor spreadsheet
+          <p className="text-xs text-slate-500 font-medium">
+            Laba bersih, margin, kecepatan jual (turnover), & ekspor spreadsheet
           </p>
         </div>
         <button
           onClick={() => window.print()}
-          className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-bold rounded-xl bg-slate-900 text-white dark:bg-zinc-100 dark:text-zinc-900 hover:bg-slate-800 shadow-xs transition active:scale-95"
+          className="inline-flex items-center gap-1.5 px-3.5 py-2 text-xs font-bold rounded-xl bg-slate-900 text-white dark:bg-zinc-100 dark:text-zinc-900 hover:bg-slate-800 shadow-xs transition active:scale-95"
         >
           <Printer className="w-3.5 h-3.5" />
           <span>Cetak PDF</span>
         </button>
       </div>
 
-      {/* Financial Performance Summary Grid */}
+      {/* Financial Performance Summary Grid - 4 Elevated Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        <div className="p-5 rounded-2xl bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-800 shadow-xs">
+        {/* 1. Omzet */}
+        <div className="p-5 sm:p-6 rounded-3xl bg-white dark:bg-zinc-900 border border-slate-200/90 dark:border-zinc-800 shadow-xs relative overflow-hidden">
+          <div className="absolute top-0 left-0 right-0 h-1 bg-slate-400 dark:bg-zinc-600" />
           <span className="text-xs font-bold text-slate-500 dark:text-zinc-400 uppercase tracking-wider block">
             Total Omzet Penjualan
           </span>
-          <p className="text-2xl font-black font-mono text-slate-900 dark:text-zinc-50 mt-1">
+          <p className="text-2xl sm:text-3xl font-black font-mono text-slate-900 dark:text-zinc-50 mt-1.5 tracking-tight">
             {formatRupiah(totalOmzet)}
           </p>
-          <span className="text-xs text-slate-500 mt-1 block">
-            Dari {soldCars.length} unit laku
+          <span className="text-xs text-slate-500 mt-2 block font-medium">
+            Realisasi dari {soldCars.length} unit laku
           </span>
         </div>
 
-        <div className="p-5 rounded-2xl bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-800 shadow-xs">
-          <span className="text-xs font-bold text-slate-500 dark:text-zinc-400 uppercase tracking-wider block">
+        {/* 2. Net Profit */}
+        <div className="p-5 sm:p-6 rounded-3xl bg-gradient-to-br from-emerald-50/60 via-white to-teal-50/40 dark:from-emerald-950/30 dark:via-zinc-900 dark:to-teal-950/20 border border-emerald-200/80 dark:border-emerald-800/60 shadow-xs relative overflow-hidden">
+          <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-emerald-500 to-teal-400" />
+          <span className="text-xs font-black text-emerald-800 dark:text-emerald-400 uppercase tracking-wider block">
             Total Net Profit Garasi
           </span>
-          <p className="text-2xl font-black font-mono text-emerald-700 dark:text-emerald-400 mt-1">
+          <p className="text-2xl sm:text-3xl font-black font-mono text-emerald-700 dark:text-emerald-400 mt-1.5 tracking-tight">
             +{formatRupiah(totalNetProfit)}
           </p>
-          <span className="text-xs text-slate-500 mt-1 block">
-            Laba bersih setelah HPP & komisi
+          <span className="text-xs text-emerald-800/80 dark:text-emerald-400/80 mt-2 block font-medium">
+            Laba bersih setelah HPP unit & komisi
           </span>
         </div>
 
-        <div className="p-5 rounded-2xl bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-800 shadow-xs">
+        {/* 3. Avg Margin */}
+        <div className="p-5 sm:p-6 rounded-3xl bg-white dark:bg-zinc-900 border border-slate-200/90 dark:border-zinc-800 shadow-xs relative overflow-hidden">
+          <div className="absolute top-0 left-0 right-0 h-1 bg-amber-500" />
           <span className="text-xs font-bold text-slate-500 dark:text-zinc-400 uppercase tracking-wider block">
             Rata-rata Margin Profit
           </span>
-          <p className="text-2xl font-black font-mono text-slate-900 dark:text-zinc-50 mt-1">
+          <p className="text-2xl sm:text-3xl font-black font-mono text-slate-900 dark:text-zinc-50 mt-1.5 tracking-tight">
             {avgMargin.toFixed(1)}%
           </p>
-          <span className="text-xs text-slate-500 mt-1 block">
-            Persentase margin per unit laku
+          <span className="text-xs text-slate-500 mt-2 block font-medium">
+            Persentase margin rata-rata unit laku
           </span>
         </div>
 
-        <div className="p-5 rounded-2xl bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-800 shadow-xs">
+        {/* 4. Avg Days */}
+        <div className="p-5 sm:p-6 rounded-3xl bg-white dark:bg-zinc-900 border border-slate-200/90 dark:border-zinc-800 shadow-xs relative overflow-hidden">
+          <div className="absolute top-0 left-0 right-0 h-1 bg-purple-500" />
           <span className="text-xs font-bold text-slate-500 dark:text-zinc-400 uppercase tracking-wider block">
             Rata-rata Waktu Terjual
           </span>
-          <p className="text-2xl font-black font-mono text-slate-900 dark:text-zinc-50 mt-1">
+          <p className="text-2xl sm:text-3xl font-black font-mono text-slate-900 dark:text-zinc-50 mt-1.5 tracking-tight">
             {avgHoldingDays} Hari
           </p>
-          <span className="text-xs text-slate-500 mt-1 block">
-            Holding period perputaran stok
+          <span className="text-xs text-slate-500 mt-2 block font-medium">
+            Holding period perputaran stok garasi
           </span>
         </div>
       </div>
 
       {/* Analisis Biaya Rekondisi per Pos Bengkel (Expense Intelligence) */}
-      <div className="p-5 sm:p-6 rounded-2xl bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-800 shadow-xs space-y-4">
+      <div className="p-5 sm:p-6 rounded-3xl bg-white dark:bg-zinc-900 border border-slate-200/90 dark:border-zinc-800 shadow-xs space-y-4">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-          <div>
-            <h3 className="text-sm sm:text-base font-bold text-slate-900 dark:text-zinc-100 flex items-center gap-2">
-              <Wrench className="w-4 h-4 text-emerald-600" />
-              <span>Analisis Pengeluaran Bengkel & Rekon Showroom ({formatRupiah(totalAllReconditions)})</span>
-            </h3>
-            <p className="text-xs text-slate-500 mt-0.5">
-              Rincian pos perbaikan dari total {allExpenses.length} nota bengkel untuk mengontrol efisiensi vendor
-            </p>
+          <div className="flex items-center gap-2.5">
+            <div className="p-2 rounded-xl bg-amber-100 dark:bg-amber-950/60 text-amber-700 dark:text-amber-400">
+              <Wrench className="w-4 h-4" />
+            </div>
+            <div>
+              <h3 className="text-sm sm:text-base font-black text-slate-900 dark:text-zinc-100 flex items-center gap-2">
+                <span>Analisis Pos Bengkel & Rekon Showroom</span>
+                <span className="font-mono text-amber-700 dark:text-amber-400">({formatRupiah(totalAllReconditions)})</span>
+              </h3>
+              <p className="text-xs text-slate-500 mt-0.5">
+                Rincian alokasi dari total {allExpenses.length} nota bengkel untuk mengontrol efisiensi vendor
+              </p>
+            </div>
           </div>
-          <span className="text-xs font-mono font-bold px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-zinc-800 text-slate-700 dark:text-zinc-300">
+          <span className="text-xs font-mono font-bold px-3 py-1 rounded-full bg-slate-100 dark:bg-zinc-800 text-slate-700 dark:text-zinc-300 border border-slate-200 dark:border-zinc-700">
             {categoryTotals.length} Pos Perbaikan Aktif
           </span>
         </div>
 
         {/* Multi-segment Progress Bar */}
-        <div className="w-full h-3 bg-slate-100 dark:bg-zinc-800 rounded-full overflow-hidden flex">
+        <div className="w-full h-3.5 bg-slate-100 dark:bg-zinc-800 rounded-full overflow-hidden flex shadow-inner">
           {categoryTotals.map((cat) => (
             <div
               key={cat.key}
@@ -287,15 +300,15 @@ export const ReportsView: React.FC = () => {
           {categoryTotals.map((cat) => (
             <div
               key={cat.key}
-              className="p-3.5 rounded-xl border border-slate-200 dark:border-zinc-800 bg-slate-50/70 dark:bg-zinc-800/40 flex items-center justify-between text-xs"
+              className="p-4 rounded-2xl border border-slate-200/80 dark:border-zinc-800 bg-slate-50/70 dark:bg-zinc-800/40 flex items-center justify-between text-xs shadow-2xs hover:border-slate-300 dark:hover:border-zinc-700 transition"
             >
-              <div className="flex items-center gap-2.5 min-w-0">
-                <span className={`w-3 h-3 rounded-full ${cat.barColor} shrink-0`} />
+              <div className="flex items-center gap-3 min-w-0">
+                <span className={`w-3.5 h-3.5 rounded-full ${cat.barColor} shrink-0 ring-2 ring-white dark:ring-zinc-900`} />
                 <div className="truncate">
                   <span className="font-bold text-slate-800 dark:text-zinc-200 block truncate">
                     {cat.label}
                   </span>
-                  <span className="text-[11px] text-slate-500">
+                  <span className="text-[11px] text-slate-500 font-medium">
                     {cat.count} Nota Servis
                   </span>
                 </div>
@@ -304,7 +317,7 @@ export const ReportsView: React.FC = () => {
                 <span className="font-bold font-mono text-slate-900 dark:text-zinc-100 block">
                   {formatRupiah(cat.amount)}
                 </span>
-                <span className="text-[11px] text-slate-500 font-mono">
+                <span className="text-[11px] text-slate-500 font-mono font-bold">
                   {cat.pct.toFixed(1)}%
                 </span>
               </div>
@@ -313,34 +326,34 @@ export const ReportsView: React.FC = () => {
         </div>
       </div>
 
-      {/* CSV Exporter Cards - Clean & Clear */}
-      <div className="p-6 rounded-2xl bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-800 shadow-xs space-y-4">
+      {/* CSV Exporter Cards - Clean, High Contrast & Tactile */}
+      <div className="p-5 sm:p-6 rounded-3xl bg-white dark:bg-zinc-900 border border-slate-200/90 dark:border-zinc-800 shadow-xs space-y-4">
         <div>
-          <h3 className="text-base font-bold text-slate-900 dark:text-zinc-100">
+          <h3 className="text-base font-black text-slate-900 dark:text-zinc-100">
             Unduh Data Spreadsheet / CSV
           </h3>
-          <p className="text-xs text-slate-500">
-            Klik tombol untuk mengunduh file CSV yang siap dibuka di Microsoft Excel atau Google Sheets
+          <p className="text-xs text-slate-500 font-medium">
+            File CSV terformat rapi dan langsung kompatibel dengan Microsoft Excel, Google Sheets, atau Apple Numbers
           </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 pt-1">
           {/* Export 1: Stok & HPP */}
-          <div className="p-4 rounded-xl border border-slate-200 dark:border-zinc-800 bg-slate-50 dark:bg-zinc-800/40 flex flex-col justify-between">
+          <div className="p-5 rounded-2xl border border-slate-200/90 dark:border-zinc-800 bg-slate-50/70 dark:bg-zinc-800/40 flex flex-col justify-between hover:border-slate-300 dark:hover:border-zinc-700 transition shadow-2xs">
             <div>
-              <div className="p-2 w-fit rounded-lg bg-emerald-100 text-emerald-800 mb-2">
+              <div className="p-2.5 w-fit rounded-xl bg-emerald-100 dark:bg-emerald-950/60 text-emerald-800 dark:text-emerald-300 mb-3">
                 <Car className="w-5 h-5" />
               </div>
-              <h4 className="text-sm font-bold text-slate-900 dark:text-zinc-100">
+              <h4 className="text-sm font-black text-slate-900 dark:text-zinc-100">
                 Data Stok Mobil & HPP
               </h4>
-              <p className="text-xs text-slate-500 mt-1">
-                Data lengkap semua unit: Nopol, harga beli, total rekondisi, HPP modal, dan margin.
+              <p className="text-xs text-slate-500 mt-1 font-medium">
+                Data lengkap semua unit: Nopol, harga beli, total rekondisi, HPP modal bersih, dan margin realisasi.
               </p>
             </div>
             <button
               onClick={exportCarsToCSV}
-              className="mt-4 w-full py-2 px-3 text-xs font-bold rounded-lg bg-white dark:bg-zinc-700 border border-slate-300 dark:border-zinc-600 text-slate-800 dark:text-zinc-100 hover:bg-slate-100 transition flex items-center justify-center gap-1.5 shadow-2xs"
+              className="mt-4 w-full py-2.5 px-3.5 text-xs font-bold rounded-xl bg-white dark:bg-zinc-800 border border-slate-300/80 dark:border-zinc-600 text-slate-800 dark:text-zinc-100 hover:bg-slate-100 dark:hover:bg-zinc-700 transition flex items-center justify-center gap-2 shadow-2xs active:scale-95"
             >
               <Download className="w-4 h-4 text-emerald-600" />
               <span>Download CSV Stok & HPP</span>
@@ -348,21 +361,21 @@ export const ReportsView: React.FC = () => {
           </div>
 
           {/* Export 2: Rincian Rekondisi */}
-          <div className="p-4 rounded-xl border border-slate-200 dark:border-zinc-800 bg-slate-50 dark:bg-zinc-800/40 flex flex-col justify-between">
+          <div className="p-5 rounded-2xl border border-slate-200/90 dark:border-zinc-800 bg-slate-50/70 dark:bg-zinc-800/40 flex flex-col justify-between hover:border-slate-300 dark:hover:border-zinc-700 transition shadow-2xs">
             <div>
-              <div className="p-2 w-fit rounded-lg bg-amber-100 text-amber-800 mb-2">
+              <div className="p-2.5 w-fit rounded-xl bg-amber-100 dark:bg-amber-950/60 text-amber-800 dark:text-amber-300 mb-3">
                 <FileSpreadsheet className="w-5 h-5" />
               </div>
-              <h4 className="text-sm font-bold text-slate-900 dark:text-zinc-100">
+              <h4 className="text-sm font-black text-slate-900 dark:text-zinc-100">
                 Rincian Biaya Rekondisi
               </h4>
-              <p className="text-xs text-slate-500 mt-1">
-                Detail seluruh nota servis, bengkel, cat, kaki-kaki, salon, dan sparepart per unit mobil.
+              <p className="text-xs text-slate-500 mt-1 font-medium">
+                Detail seluruh nota servis, bengkel cat, kaki-kaki, salon, dan sparepart per unit mobil showroom.
               </p>
             </div>
             <button
               onClick={exportReconditionsToCSV}
-              className="mt-4 w-full py-2 px-3 text-xs font-bold rounded-lg bg-white dark:bg-zinc-700 border border-slate-300 dark:border-zinc-600 text-slate-800 dark:text-zinc-100 hover:bg-slate-100 transition flex items-center justify-center gap-1.5 shadow-2xs"
+              className="mt-4 w-full py-2.5 px-3.5 text-xs font-bold rounded-xl bg-white dark:bg-zinc-800 border border-slate-300/80 dark:border-zinc-600 text-slate-800 dark:text-zinc-100 hover:bg-slate-100 dark:hover:bg-zinc-700 transition flex items-center justify-center gap-2 shadow-2xs active:scale-95"
             >
               <Download className="w-4 h-4 text-amber-600" />
               <span>Download CSV Nota Rekon</span>
@@ -370,21 +383,21 @@ export const ReportsView: React.FC = () => {
           </div>
 
           {/* Export 3: Buku Kas Umum */}
-          <div className="p-4 rounded-xl border border-slate-200 dark:border-zinc-800 bg-slate-50 dark:bg-zinc-800/40 flex flex-col justify-between">
+          <div className="p-5 rounded-2xl border border-slate-200/90 dark:border-zinc-800 bg-slate-50/70 dark:bg-zinc-800/40 flex flex-col justify-between hover:border-slate-300 dark:hover:border-zinc-700 transition shadow-2xs">
             <div>
-              <div className="p-2 w-fit rounded-lg bg-blue-100 text-blue-800 mb-2">
+              <div className="p-2.5 w-fit rounded-xl bg-blue-100 dark:bg-blue-950/60 text-blue-800 dark:text-blue-300 mb-3">
                 <DollarSign className="w-5 h-5" />
               </div>
-              <h4 className="text-sm font-bold text-slate-900 dark:text-zinc-100">
+              <h4 className="text-sm font-black text-slate-900 dark:text-zinc-100">
                 Mutasi Buku Kas Umum
               </h4>
-              <p className="text-xs text-slate-500 mt-1">
-                Seluruh arus kas masuk, keluar, DP, pelunasan mobil, biaya operasional garasi & bagi hasil.
+              <p className="text-xs text-slate-500 mt-1 font-medium">
+                Seluruh arus kas masuk, keluar, DP, pelunasan mobil, biaya operasional garasi & bagi hasil partner.
               </p>
             </div>
             <button
               onClick={exportCashflowToCSV}
-              className="mt-4 w-full py-2 px-3 text-xs font-bold rounded-lg bg-white dark:bg-zinc-700 border border-slate-300 dark:border-zinc-600 text-slate-800 dark:text-zinc-100 hover:bg-slate-100 transition flex items-center justify-center gap-1.5 shadow-2xs"
+              className="mt-4 w-full py-2.5 px-3.5 text-xs font-bold rounded-xl bg-white dark:bg-zinc-800 border border-slate-300/80 dark:border-zinc-600 text-slate-800 dark:text-zinc-100 hover:bg-slate-100 dark:hover:bg-zinc-700 transition flex items-center justify-center gap-2 shadow-2xs active:scale-95"
             >
               <Download className="w-4 h-4 text-blue-600" />
               <span>Download CSV Buku Kas</span>
@@ -394,31 +407,37 @@ export const ReportsView: React.FC = () => {
       </div>
 
       {/* Table: Sold Units Breakdown */}
-      <div className="bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-800 rounded-2xl shadow-xs overflow-hidden">
-        <div className="p-4 border-b border-slate-200 dark:border-zinc-800">
-          <h3 className="text-sm font-bold text-slate-900 dark:text-zinc-100">
-            Rekapitulasi Unit Terjual & Realisasi Laba
-          </h3>
+      <div className="bg-white dark:bg-zinc-900 border border-slate-200/90 dark:border-zinc-800 rounded-3xl shadow-xs overflow-hidden">
+        <div className="p-4 sm:p-5 border-b border-slate-200/90 dark:border-zinc-800 flex items-center justify-between">
+          <div>
+            <h3 className="text-sm font-black text-slate-900 dark:text-zinc-100">
+              Rekapitulasi Unit Terjual & Realisasi Laba
+            </h3>
+            <p className="text-[11px] text-slate-500 font-medium">Audit menyeluruh HPP, harga jual final, dan net profit per unit</p>
+          </div>
+          <span className="text-xs font-mono font-bold px-2.5 py-1 rounded-full bg-slate-100 dark:bg-zinc-800 text-slate-600 dark:text-zinc-400">
+            {soldCars.length} Unit Laku
+          </span>
         </div>
 
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs">
-            <thead className="bg-slate-50 dark:bg-zinc-800/60 text-slate-600 dark:text-zinc-400 font-bold border-b border-slate-200 dark:border-zinc-800">
+            <thead className="bg-slate-50 dark:bg-zinc-800/80 text-slate-600 dark:text-zinc-400 font-bold border-b border-slate-200/90 dark:border-zinc-800">
               <tr>
-                <th className="py-3 px-4">Nopol / Unit</th>
-                <th className="py-3 px-4 text-right">Harga Beli</th>
-                <th className="py-3 px-4 text-right">Rekondisi</th>
-                <th className="py-3 px-4 text-right">Total HPP</th>
-                <th className="py-3 px-4 text-right">Harga Jual</th>
-                <th className="py-3 px-4 text-right">Net Profit</th>
-                <th className="py-3 px-4 text-right">Margin (%)</th>
-                <th className="py-3 px-4 text-center">Lama Terjual</th>
+                <th className="py-3.5 px-4">Nopol / Unit</th>
+                <th className="py-3.5 px-4 text-right">Harga Beli</th>
+                <th className="py-3.5 px-4 text-right">Rekondisi</th>
+                <th className="py-3.5 px-4 text-right">Total HPP</th>
+                <th className="py-3.5 px-4 text-right">Harga Jual</th>
+                <th className="py-3.5 px-4 text-right">Net Profit</th>
+                <th className="py-3.5 px-4 text-right">Margin (%)</th>
+                <th className="py-3.5 px-4 text-center">Lama Terjual</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-100 dark:divide-zinc-800 font-mono">
+            <tbody className="divide-y divide-slate-100 dark:divide-zinc-800/80 font-mono">
               {soldCars.length === 0 ? (
                 <tr>
-                  <td colSpan={8} className="py-8 text-center text-slate-500 font-sans">
+                  <td colSpan={8} className="py-10 text-center text-slate-500 font-sans font-medium">
                     Belum ada unit dengan status Terjual (Sold).
                   </td>
                 </tr>
@@ -426,31 +445,33 @@ export const ReportsView: React.FC = () => {
                 soldCars.map((car) => {
                   const fin = calculateUnitFinancials(car);
                   return (
-                    <tr key={car.id} className="hover:bg-slate-50 dark:hover:bg-zinc-800/40">
-                      <td className="py-3 px-4 font-sans font-medium text-slate-900 dark:text-zinc-100">
-                        <span className="font-mono font-bold block">{car.licensePlate}</span>
-                        <span className="text-xs text-slate-500">{car.brand} {car.model}</span>
+                    <tr key={car.id} className="hover:bg-slate-50/80 dark:hover:bg-zinc-800/40 transition">
+                      <td className="py-3.5 px-4 font-sans font-medium text-slate-900 dark:text-zinc-100">
+                        <span className="font-mono font-black block text-sm">{car.licensePlate}</span>
+                        <span className="text-[11px] text-slate-500">{car.brand} {car.model} ({car.year})</span>
                       </td>
-                      <td className="py-3 px-4 text-right text-slate-700 dark:text-zinc-300">
+                      <td className="py-3.5 px-4 text-right text-slate-700 dark:text-zinc-300 font-medium">
                         {formatRupiah(car.purchasePrice)}
                       </td>
-                      <td className="py-3 px-4 text-right text-amber-700 dark:text-amber-400">
+                      <td className="py-3.5 px-4 text-right text-amber-700 dark:text-amber-400 font-medium">
                         {formatRupiah(fin.totalRecondition)}
                       </td>
-                      <td className="py-3 px-4 text-right font-bold text-slate-900 dark:text-zinc-100">
+                      <td className="py-3.5 px-4 text-right font-black text-slate-900 dark:text-zinc-100">
                         {formatRupiah(fin.totalHpp)}
                       </td>
-                      <td className="py-3 px-4 text-right font-bold text-slate-900 dark:text-zinc-100">
+                      <td className="py-3.5 px-4 text-right font-black text-slate-900 dark:text-zinc-100">
                         {formatRupiah(car.finalSellingPrice)}
                       </td>
-                      <td className="py-3 px-4 text-right font-black text-emerald-700 dark:text-emerald-400">
+                      <td className="py-3.5 px-4 text-right font-black text-emerald-700 dark:text-emerald-400 text-sm">
                         +{formatRupiah(fin.netProfit)}
                       </td>
-                      <td className="py-3 px-4 text-right text-slate-800 dark:text-zinc-200">
+                      <td className="py-3.5 px-4 text-right text-slate-800 dark:text-zinc-200 font-bold">
                         {fin.marginPct}%
                       </td>
-                      <td className="py-3 px-4 text-center font-sans text-slate-500">
-                        {fin.holdingDays} hari
+                      <td className="py-3.5 px-4 text-center font-sans">
+                        <span className="px-2.5 py-1 rounded-full bg-slate-100 dark:bg-zinc-800 text-[11px] font-bold text-slate-600 dark:text-zinc-400">
+                          {fin.holdingDays} hari
+                        </span>
                       </td>
                     </tr>
                   );
